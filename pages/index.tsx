@@ -2,6 +2,7 @@ import type { NextPage } from 'next'
 import Head from 'next/head'
 import styles from '../styles/Home.module.css'
 import Banner from "../components/core/Banner";
+import Navbar from "../components/core/Nav";
 
 const Home: NextPage = () => {
   return (
@@ -10,7 +11,7 @@ const Home: NextPage = () => {
         <title>GuitaraHub</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <h1>GuitaraHub</h1>
+      <Navbar username="hi@hi.com" />
       <Banner title="Clifford"
               subTitle="Cute dog"
               imgUrl="/static/clifford.webp"
