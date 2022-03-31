@@ -8,7 +8,7 @@ export interface BannerProps {
     imgUrl: string
 }
 
-const Banner: FC<BannerProps> = ({ title, subTitle, imgUrl}) => {
+const Banner: FC<BannerProps> = ({title, subTitle, imgUrl}) => {
     const handleOnPlay = () => {
         console.log('handleOnPlay')
     }
