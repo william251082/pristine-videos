@@ -1,11 +1,22 @@
-import {FC} from 'react'
+import {FC, MouseEventHandler} from 'react'
 import styles from "./Navbar.module.css";
+import {useRouter} from "next/router";
+import Link from 'next/link';
 
 interface NavbarProps {
     username: string
 }
 
 const Navbar: FC<NavbarProps> = ({username}) => {
+    const router = useRouter()
+    const handleOnClickHome = (e: Event) => {
+        e.preventDefault()
+        router.push('/').then(r => r)
+    }
+    const handleOnClickMyList = (e: Event) => {
+        e.preventDefault()
+        router.push('/browse/my-list').then(r => r)
+    }
     return (
         <div className={styles.container}>
             <div className={styles.wrapper}>
@@ -15,8 +26,18 @@ const Navbar: FC<NavbarProps> = ({username}) => {
                     </div>
                 </a>
                 <ul className={styles.navItems}>
-                    <li className={styles.navItem}>Home</li>
-                    <li className={styles.navItem2}>My List</li>
+                    <li
+                        className={styles.navItem}
+                        onClick={() => handleOnClickHome}
+                    >
+                        Home
+                    </li>
+                    <li
+                        className={styles.navItem2}
+                        onClick={() => handleOnClickMyList}
+                    >
+                        My List
+                    </li>
                 </ul>
                 <nav className={styles.navContainer}>
                     <div>
@@ -25,7 +46,9 @@ const Navbar: FC<NavbarProps> = ({username}) => {
                         </button>
                         <div className={styles.navDropdown}>
                             <div>
-                                <a className={styles.linkName}>Sign out</a>
+                                <Link href="/login">
+                                    <a className={styles.linkName}>Sign out</a>
+                                </Link>
                                 <div className={styles.lineWrapper}>
 
                                 </div>
