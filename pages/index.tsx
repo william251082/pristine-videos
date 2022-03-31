@@ -11,7 +11,10 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <h1>GuitaraHub</h1>
-      <Banner />
+      <Banner title="Clifford"
+              subTitle="Cute dog"
+              imgUrl="/static/clifford.webp"
+      />
     </div>
   )
 }
