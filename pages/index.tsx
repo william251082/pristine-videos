@@ -26,6 +26,13 @@ const Home: NextPage = () => {
                     shouldWrap={sectionCardData.shouldWrap}
                     shouldScale={sectionCardData.shouldScale}
                 />
+                <SectionCards
+                    title={sectionCardData.title}
+                    videos={sectionCardData.videos}
+                    size={'medium'}
+                    shouldWrap={sectionCardData.shouldWrap}
+                    shouldScale={sectionCardData.shouldScale}
+                />
             </div>
         </div>
     )

@@ -5,88 +5,23 @@ import cn from "classnames";
 import {Card} from "@components/core";
 import {cardData} from "@data/index";
 
-const SectionCards: FC<SectionCardProps> = ({title}) => {
+const SectionCards: FC<SectionCardProps> = ({title, videos, size, shouldScale}) => {
   return (
     <section className={styles.container}>
       <h2 className={styles.title}>{title}</h2>
       <div className={cn(styles.cardWrapper)}>
-        <Card
-            id={0}
-            imgUrl={cardData.imgUrl}
-            size={cardData.size}
-            shouldScale={cardData.shouldScale}
-            defaultImg={cardData.defaultImg}
-        />
-          <Card
-              id={cardData.id}
-              imgUrl={cardData.imgUrl}
-              size={cardData.size}
-              shouldScale={cardData.shouldScale}
-              defaultImg={cardData.defaultImg}
-          />
-          <Card
-              id={cardData.id}
-              imgUrl={cardData.imgUrl}
-              size={cardData.size}
-              shouldScale={cardData.shouldScale}
-              defaultImg={cardData.defaultImg}
-          />
-          <Card
-              id={cardData.id}
-              imgUrl={cardData.imgUrl}
-              size={cardData.size}
-              shouldScale={cardData.shouldScale}
-              defaultImg={cardData.defaultImg}
-          />
-          <Card
-              id={cardData.id}
-              imgUrl={cardData.imgUrl}
-              size={cardData.size}
-              shouldScale={cardData.shouldScale}
-              defaultImg={cardData.defaultImg}
-          />
-          <Card
-              id={cardData.id}
-              imgUrl={cardData.imgUrl}
-              size={cardData.size}
-              shouldScale={cardData.shouldScale}
-              defaultImg={cardData.defaultImg}
-          />
-          <Card
-              id={cardData.id}
-              imgUrl={cardData.imgUrl}
-              size={cardData.size}
-              shouldScale={cardData.shouldScale}
-              defaultImg={cardData.defaultImg}
-          />
-          <Card
-              id={cardData.id}
-              imgUrl={cardData.imgUrl}
-              size={cardData.size}
-              shouldScale={cardData.shouldScale}
-              defaultImg={cardData.defaultImg}
-          />
-          <Card
-              id={cardData.id}
-              imgUrl={cardData.imgUrl}
-              size={cardData.size}
-              shouldScale={cardData.shouldScale}
-              defaultImg={cardData.defaultImg}
-          />
-          <Card
-              id={cardData.id}
-              imgUrl={cardData.imgUrl}
-              size={cardData.size}
-              shouldScale={cardData.shouldScale}
-              defaultImg={cardData.defaultImg}
-          />
-          <Card
-              id={cardData.id}
-              imgUrl={cardData.imgUrl}
-              size={cardData.size}
-              shouldScale={cardData.shouldScale}
-              defaultImg={cardData.defaultImg}
-          />
+          {videos.map((video, idx) => {
+              return (
+                <Card
+                    key={idx}
+                    id={idx}
+                    imgUrl={video.imgUrl}
+                    size={size}
+                    shouldScale={shouldScale}
+                    defaultImg={cardData.defaultImg}
+                />
+              );
+          })}
       </div>
     </section>
   );

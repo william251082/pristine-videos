@@ -22,8 +22,42 @@ export const cardData = {
 }
 export const sectionCardData = {
     title: 'Disney',
-    videos: [],
-    size: '',
+    videos: [
+        {
+            imgUrl: '/static/clifford.webp'
+        },
+        {
+            imgUrl: '/static/clifford.webp'
+        },
+        {
+            imgUrl: '/static/clifford.webp'
+        },
+        {
+            imgUrl: '/static/clifford.webp'
+        },
+        {
+            imgUrl: '/static/clifford.webp'
+        },
+        {
+            imgUrl: '/static/clifford.webp'
+        },
+        {
+            imgUrl: '/static/clifford.webp'
+        },
+        {
+            imgUrl: '/static/clifford.webp'
+        },
+        {
+            imgUrl: '/static/clifford.webp'
+        },
+        {
+            imgUrl: '/static/clifford.webp'
+        },
+        {
+            imgUrl: '/static/clifford.webp'
+        }
+    ],
+    size: 'large',
     shouldWrap: true,
     shouldScale: true
 }
