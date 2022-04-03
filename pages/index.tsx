@@ -1,10 +1,10 @@
 import type {NextPage} from 'next'
 import Head from 'next/head'
 import styles from '../styles/Home.module.css'
-import Banner from "../components/core/Banner";
-import Navbar from "../components/core/Nav";
-import Card from "../components/core/Card";
-import {bannerData, cardData, headData, navData} from "../data/components";
+import {bannerData, cardData, headData, navData, sectionCardData} from "@data/index";
+import Navbar from "@components/core/Nav";
+import {Banner, Card} from "@components/core";
+import SectionCards from "@components/core/SectionCard";
 
 const Home: NextPage = () => {
     return (
@@ -17,6 +17,13 @@ const Home: NextPage = () => {
             <Banner title={bannerData.title}
                     subTitle={bannerData.subTitle}
                     imgUrl={bannerData.imgUrl}
+            />
+            <SectionCards
+                title={sectionCardData.title}
+                videos={sectionCardData.videos}
+                size={sectionCardData.size}
+                shouldWrap={sectionCardData.shouldWrap}
+                shouldScale={sectionCardData.shouldScale}
             />
             <Card
                 id={cardData.id}
