@@ -14,7 +14,7 @@ export const bannerData = {
 export const cardData = {
     id: 1,
     imgUrl: "/static/clifford.webp",
-    size:"large",
+    size: "large",
     shouldScale: true
 }
 

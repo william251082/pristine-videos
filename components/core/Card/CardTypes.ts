@@ -4,3 +4,6 @@ export interface CardProps {
     id: number
     shouldScale: boolean
 }
+export interface ClassMapImgSizes {
+    [key: string]: string
+}
