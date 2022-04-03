@@ -11,7 +11,7 @@ const SectionCards: FC<SectionCardProps> = ({title}) => {
       <h2 className={styles.title}>{title}</h2>
       <div className={cn(styles.cardWrapper)}>
         <Card
-            id={cardData.id}
+            id={0}
             imgUrl={cardData.imgUrl}
             size={cardData.size}
             shouldScale={cardData.shouldScale}
