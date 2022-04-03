@@ -1,12 +1,7 @@
 import {FC} from "react";
 import Image from "next/image";
 import styles from "./Banner.module.css";
-
-export interface BannerProps {
-    title: string
-    subTitle: string
-    imgUrl: string
-}
+import {BannerProps} from "./BannerTypes";
 
 const Banner: FC<BannerProps> = ({title, subTitle, imgUrl}) => {
     const handleOnPlay = () => {

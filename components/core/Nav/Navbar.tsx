@@ -3,10 +3,7 @@ import styles from "./Navbar.module.css";
 import {useRouter} from "next/router";
 import Link from 'next/link';
 import Image from "next/image";
-
-interface NavbarProps {
-    username: string
-}
+import {NavbarProps} from "./NavbarTypes";
 
 const Navbar: FC<NavbarProps> = ({username}) => {
     const [showDropdown, setShowDropdown] = useState(false)
