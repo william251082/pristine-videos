@@ -25,27 +25,6 @@ const Home: NextPage = () => {
                 shouldWrap={sectionCardData.shouldWrap}
                 shouldScale={sectionCardData.shouldScale}
             />
-            <Card
-                id={cardData.id}
-                imgUrl={cardData.imgUrl}
-                size={cardData.size}
-                shouldScale={cardData.shouldScale}
-                defaultImg={cardData.defaultImg}
-            />
-            <Card
-                id={cardData.id}
-                imgUrl={cardData.imgUrl}
-                size={cardData.size}
-                shouldScale={cardData.shouldScale}
-                defaultImg={cardData.defaultImg}
-            />
-            <Card
-                id={cardData.id}
-                imgUrl={cardData.imgUrl}
-                size={cardData.size}
-                shouldScale={cardData.shouldScale}
-                defaultImg={cardData.defaultImg}
-            />
         </div>
     )
 }
