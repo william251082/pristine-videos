@@ -23,18 +23,21 @@ const Home: NextPage = () => {
                 imgUrl={cardData.imgUrl}
                 size={cardData.size}
                 shouldScale={cardData.shouldScale}
+                defaultImg={cardData.defaultImg}
             />
             <Card
                 id={cardData.id}
                 imgUrl={cardData.imgUrl}
                 size={cardData.size}
                 shouldScale={cardData.shouldScale}
+                defaultImg={cardData.defaultImg}
             />
             <Card
                 id={cardData.id}
                 imgUrl={cardData.imgUrl}
                 size={cardData.size}
                 shouldScale={cardData.shouldScale}
+                defaultImg={cardData.defaultImg}
             />
         </div>
     )

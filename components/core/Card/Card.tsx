@@ -3,7 +3,7 @@ import styles from "./Card.module.css";
 import {CardProps, ClassMapImgSizes} from "./CardTypes";
 import Image from "next/image";
 
-const Card: FC<CardProps> = ({imgUrl, size}) => {
+const Card: FC<CardProps> = ({imgUrl, size, defaultImg}) => {
     const [imgSrc, setImgSrc] = useState(imgUrl);
     const classMap: ClassMapImgSizes = {
         large: styles.lgItem,
@@ -11,7 +11,7 @@ const Card: FC<CardProps> = ({imgUrl, size}) => {
         small: styles.smItem
     };
     const handleOnError = () => {
-        setImgSrc("/static/clifford.webp")
+        setImgSrc(defaultImg)
     }
     return (
         <div className={styles.container}>
