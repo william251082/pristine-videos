@@ -1,6 +1,3 @@
-import {DisneyVideo} from "../pages";
-import {string} from "prop-types";
-
 export interface VideoItem {
     kind: string
     etag: string
@@ -36,11 +33,12 @@ export interface VideoItem {
     }
 }
 
-export const getVideos = async (searchQuery: string) => {
+const getCommonVideos = async (url: string) => {
     const YOUTUBE_API_KEY: string | undefined = process.env.YOUTUBE_API_KEY
     try {
+        const BASE_URL = 'youtube.googleapis.com/youtube/v3'
         const response = await fetch(
-            `https://youtube.googleapis.com/youtube/v3/search?part=snippet&q=${searchQuery}&key=${YOUTUBE_API_KEY}`
+            `https://${BASE_URL}/${url}&key=${YOUTUBE_API_KEY}`
         )
         const data = await response.json()
 
@@ -60,4 +58,9 @@ export const getVideos = async (searchQuery: string) => {
     } catch (error) {
         console.error('Something went wrong with the video library', error)
     }
+}
+
+export const getVideos = (searchQuery: string) => {
+    const URL = `search?part=snippet&maxResults=25&q=${searchQuery}&type=video`
+    return getCommonVideos(URL)
 }
