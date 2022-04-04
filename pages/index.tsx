@@ -1,6 +1,6 @@
-import type {InferGetServerSidePropsType, NextPage} from 'next'
+import type {InferGetServerSidePropsType} from 'next'
 import Head from 'next/head'
-import styles from '../styles/Home.module.css'
+import styles from '@styles/Home.module.css'
 import {bannerData, headData, navData, sectionCardData} from "@data/index";
 import Navbar from "@components/core/Nav";
 import {Banner} from "@components/core";
@@ -14,7 +14,7 @@ export interface DisneyVideo {
 }
 
 export async function getServerSideProps() {
-    const disneyVideos: DisneyVideo[] = getVideos();
+    const disneyVideos = await getVideos();
     return { props: {disneyVideos} }
 }
 
