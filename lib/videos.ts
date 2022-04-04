@@ -38,7 +38,7 @@ const getCommonVideos = async (url: string) => {
     try {
         const BASE_URL = 'youtube.googleapis.com/youtube/v3'
         const response = await fetch(
-            `https://${BASE_URL}/${url}&key=${YOUTUBE_API_KEY}`
+            `https://${BASE_URL}/${url}&maxResults=25&key=${YOUTUBE_API_KEY}`
         )
         const data = await response.json()
 
@@ -61,6 +61,11 @@ const getCommonVideos = async (url: string) => {
 }
 
 export const getVideos = (searchQuery: string) => {
-    const URL = `search?part=snippet&maxResults=25&q=${searchQuery}&type=video`
+    const URL = `search?part=snippet&q=${searchQuery}&type=video`
+    return getCommonVideos(URL)
+}
+
+export const getPopularVideos = () => {
+    const URL = `videos?part=snippet%2CcontentDetails%2Cstatistics&chart=mostPopular&regionCode=US`
     return getCommonVideos(URL)
 }
