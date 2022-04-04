@@ -1,4 +1,4 @@
-import type {NextPage} from 'next'
+import type {InferGetServerSidePropsType, NextPage} from 'next'
 import Head from 'next/head'
 import styles from '../styles/Home.module.css'
 import {bannerData, headData, navData, sectionCardData} from "@data/index";
@@ -7,8 +7,18 @@ import {Banner} from "@components/core";
 import SectionCards from "@components/core/SectionCard";
 import {getVideos} from "@lib/videos";
 
-const Home: NextPage = () => {
-    const disneyVideos = getVideos();
+export interface DisneyVideo {
+    id: string
+    title: string
+    imgUrl: string
+}
+
+export async function getServerSideProps() {
+    const disneyVideos: DisneyVideo[] = getVideos();
+    return { props: {disneyVideos} }
+}
+
+const Home = ({disneyVideos}: InferGetServerSidePropsType<typeof getServerSideProps>) => {
     return (
         <div className={styles.container}>
             <Head>
