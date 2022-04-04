@@ -1,5 +1,5 @@
 export const headData = {
-    title: "GuitaraHub",
+    title: "Pristine Videos",
     rel:"icon",
     href:"/favicon.ico"
 }

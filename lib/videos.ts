@@ -1,4 +1,5 @@
 import {DisneyVideo} from "../pages";
+import {string} from "prop-types";
 
 export interface VideoItem {
     kind: string
@@ -35,10 +36,10 @@ export interface VideoItem {
     }
 }
 
-export const getVideos = async (): Promise<DisneyVideo[]> => {
+export const getVideos = async (searchQuery: string): Promise<DisneyVideo[]> => {
     const YOUTUBE_API_KEY: string | undefined = process.env.YOUTUBE_API_KEY
     const response = await fetch(
-        `https://youtube.googleapis.com/youtube/v3/search?part=snippet&q=disney%20trailer&key=${YOUTUBE_API_KEY}`
+        `https://youtube.googleapis.com/youtube/v3/search?part=snippet&q=${searchQuery}&key=${YOUTUBE_API_KEY}`
     )
     const data = await response.json()
 

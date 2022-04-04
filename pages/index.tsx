@@ -14,11 +14,16 @@ export interface DisneyVideo {
 }
 
 export async function getServerSideProps() {
-    const disneyVideos = await getVideos();
-    return { props: {disneyVideos} }
+    const disneyVideos = await getVideos('disney trailer');
+    const travelVideos = await getVideos('travel');
+    const productivityVideos = await getVideos('productivity');
+    const popularVideos = await getVideos('popular');
+    return { props: {disneyVideos, travelVideos, productivityVideos, popularVideos} }
 }
 
-const Home = ({disneyVideos}: InferGetServerSidePropsType<typeof getServerSideProps>) => {
+const Home = (
+    {disneyVideos, travelVideos, productivityVideos, popularVideos}: InferGetServerSidePropsType<typeof getServerSideProps>
+) => {
     return (
         <div className={styles.container}>
             <Head>
@@ -39,9 +44,23 @@ const Home = ({disneyVideos}: InferGetServerSidePropsType<typeof getServerSidePr
                     shouldScale={sectionCardData.shouldScale}
                 />
                 <SectionCards
-                    title={sectionCardData.title}
-                    videos={sectionCardData.videos}
+                    title={'Travel'}
+                    videos={travelVideos}
+                    size={'small'}
+                    shouldWrap={sectionCardData.shouldWrap}
+                    shouldScale={sectionCardData.shouldScale}
+                />
+                <SectionCards
+                    title={'Productivity'}
+                    videos={productivityVideos}
                     size={'medium'}
+                    shouldWrap={sectionCardData.shouldWrap}
+                    shouldScale={sectionCardData.shouldScale}
+                />
+                <SectionCards
+                    title={'Popular'}
+                    videos={popularVideos}
+                    size={'small'}
                     shouldWrap={sectionCardData.shouldWrap}
                     shouldScale={sectionCardData.shouldScale}
                 />
