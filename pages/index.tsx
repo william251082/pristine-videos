@@ -5,8 +5,10 @@ import {bannerData, headData, navData, sectionCardData} from "@data/index";
 import Navbar from "@components/core/Nav";
 import {Banner} from "@components/core";
 import SectionCards from "@components/core/SectionCard";
+import {getVideos} from "@lib/videos";
 
 const Home: NextPage = () => {
+    const disneyVideos = getVideos();
     return (
         <div className={styles.container}>
             <Head>
