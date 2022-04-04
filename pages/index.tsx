@@ -23,7 +23,7 @@ const Home: NextPage = () => {
             <div className={styles.sectionWrapper}>
                 <SectionCards
                     title={sectionCardData.title}
-                    videos={sectionCardData.videos}
+                    videos={disneyVideos}
                     size={sectionCardData.size}
                     shouldWrap={sectionCardData.shouldWrap}
                     shouldScale={sectionCardData.shouldScale}
