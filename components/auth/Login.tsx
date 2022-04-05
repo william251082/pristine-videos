@@ -12,7 +12,7 @@ const Login: FC = () => {
         console.log('hi')
     }
     return (
-        <div>
+        <div className={styles.container}>
             <Head>
               <title>Pristine Videos SignIn</title>
             </Head>
