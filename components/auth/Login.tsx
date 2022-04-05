@@ -5,6 +5,12 @@ import Link from 'next/link';
 import styles from "./Login.module.css";
 
 const Login: FC = () => {
+    const handleLoginWithEmail = () => {
+        console.log('hi')
+    }
+    const handleOnChangeEmail = () => {
+        console.log('hi')
+    }
     return (
         <div>
             <Head>
@@ -26,6 +32,21 @@ const Login: FC = () => {
                     </Link>
                 </div>
             </header>
+            <main className={styles.main}>
+                <div className={styles.mainWrapper}>
+                    <h1 className={styles.signInHeader}>Sign In</h1>
+                    <input
+                        type="text"
+                        placeholder="Email address"
+                        className={styles.emailInput}
+                        onChange={handleOnChangeEmail}
+                    />
+                    <p className={styles.userMsg}>userMsg</p>
+                    <button onClick={handleLoginWithEmail} className={styles.loginBtn}>
+
+                    </button>
+                </div>
+            </main>
         </div>
     )
 }
