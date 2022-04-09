@@ -41,6 +41,7 @@ const Video = ({video}: InferGetStaticPropsType<typeof getStaticProps>) => {
                 contentLabel="Watch the video"
                 onRequestClose={() => router.back()}
                 overlayClassName={styles.overlay}
+                className={styles.modal}
             >
                 <iframe id="player"
                         className={styles.videoPlayer}
