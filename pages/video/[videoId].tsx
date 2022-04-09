@@ -6,8 +6,7 @@ const Video = () => {
     const router = useRouter()
     const videoId = router.query.videoId
     return (
-        <div>
-            video page {videoId}
+        <div className={styles.container}>
             <Modal
                 isOpen={true}
                 contentLabel="Watch the video"
