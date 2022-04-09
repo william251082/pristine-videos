@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from 'next/link';
 import styles from "./Login.module.css";
 import {useRouter} from "next/router";
-import {createMagic} from "@lib/magic-client";
+import {magic} from "@lib/magic-client";
 
 const Login: FC = () => {
     const router = useRouter()
@@ -31,7 +31,6 @@ const Login: FC = () => {
     }
     const handleLoginWithEmail = async (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault()
-        const magic = createMagic()
         if (email) {
             if (email === 'pristine.web.dev@gmail.com') {
                 try {

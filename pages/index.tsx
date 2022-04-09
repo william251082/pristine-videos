@@ -1,7 +1,7 @@
 import type {InferGetServerSidePropsType} from 'next'
 import Head from 'next/head'
 import styles from '@styles/Home.module.css'
-import {bannerData, headData, navData, sectionCardData} from "@data/index";
+import {bannerData, headData, sectionCardData} from "@data/index";
 import Navbar from "@components/core/Nav";
 import {Banner} from "@components/core";
 import SectionCards from "@components/core/SectionCard";
@@ -25,7 +25,7 @@ const Home = (
                 <link rel={headData.rel} href={headData.href}/>
             </Head>
             <div className={styles.main}>
-                <Navbar username={navData.username}/>
+                <Navbar />
                 <Banner title={bannerData.title}
                         subTitle={bannerData.subTitle}
                         imgUrl={bannerData.imgUrl}

@@ -1,13 +1,31 @@
-import React, {FC, useState} from 'react'
+import React, {FC, useEffect, useState} from 'react'
 import styles from "./Navbar.module.css";
 import {useRouter} from "next/router";
 import Link from 'next/link';
 import Image from "next/image";
-import {NavbarProps} from "./NavbarTypes";
+import {magic} from "@lib/magic-client";
+import {NavbarProps} from "@components/core/Nav/NavbarTypes";
 
-const Navbar: FC<NavbarProps> = ({username}) => {
+const Navbar: FC<NavbarProps> = () => {
     const [showDropdown, setShowDropdown] = useState(false)
+    const [username, setUsername] = useState<string | null>('')
     const router = useRouter()
+
+    useEffect(() => {
+        handleEmail().then(r => r)
+    }, [])
+
+    const handleEmail = async () => {
+        try {
+            if (magic) {
+                const {email} = await magic.user.getMetadata()
+                setUsername(email)
+                console.log(email)
+            }
+        } catch (err) {
+            console.error('Error retrieving email.', err)
+        }
+    }
 
     const handleOnClickHome = (e: React.MouseEvent<HTMLLIElement>): void => {
         e.preventDefault()
