@@ -7,9 +7,9 @@ import {magic} from "@lib/magic-client";
 import {NavbarProps} from "@components/core/Nav/NavbarTypes";
 
 const Navbar: FC<NavbarProps> = () => {
+    const router = useRouter()
     const [showDropdown, setShowDropdown] = useState(false)
     const [username, setUsername] = useState<string | null>('')
-    const router = useRouter()
 
     useEffect(() => {
         handleEmail().then(r => r)
