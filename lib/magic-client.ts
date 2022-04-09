@@ -1,5 +1,6 @@
 import {Magic} from "magic-sdk"
 
-const apiKey = process.env.MAGIC_PUBLISHABLE_API_KEY === undefined ? '' : process.env.MAGIC_PUBLISHABLE_API_KEY
+const key = process.env.NEXT_PUBLIC_MAGIC_PUBLISHABLE_API_KEY
+const apiKey = key === undefined ? '' : key
 export const createMagic = () => typeof window !== "undefined" && new Magic(apiKey)
 

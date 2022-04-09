@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from 'next/link';
 import styles from "./Login.module.css";
 import {useRouter} from "next/router";
+import {createMagic} from "@lib/magic-client";
 
 const Login: FC = () => {
     const router = useRouter()
@@ -14,12 +15,18 @@ const Login: FC = () => {
         const email = e.target.value
         setEmail(email)
     }
-    const handleLoginWithEmail = (e: React.MouseEvent<HTMLButtonElement>) => {
+    const handleLoginWithEmail = async (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault()
+        const magic = createMagic()
         if (email) {
-            if (email === 'dashboard@nj.ml') {
-                console.log('route to dashboard')
-                router.push('/').then(r => r)
+            if (email === 'pristine.web.dev@gmail.com') {
+                try {
+                    if (magic) {
+                        const didToken = await magic.auth.loginWithMagicLink({email})
+                    }
+                } catch (err) {
+                    console.error('Something went wrong logging in.', err)
+                }
             } else {
                 // show user message
                 setUserMsg('Something went wrong when logging in.')
