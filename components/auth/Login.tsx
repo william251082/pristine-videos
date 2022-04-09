@@ -10,6 +10,7 @@ const Login: FC = () => {
     const router = useRouter()
     const [email, setEmail] = useState('')
     const [userMsg, setUserMsg] = useState('')
+    const [isLoading, setIsLoading] = useState(false)
     const handleOnChangeEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
         setUserMsg('')
         const email = e.target.value
@@ -21,9 +22,11 @@ const Login: FC = () => {
         if (email) {
             if (email === 'pristine.web.dev@gmail.com') {
                 try {
+                    setIsLoading(true)
                     if (magic) {
                         const didToken = await magic.auth.loginWithMagicLink({email})
                         if (didToken) {
+                            setIsLoading(false)
                             router.push('/').then(r => r)
                         }
                     }
@@ -31,11 +34,11 @@ const Login: FC = () => {
                     console.error('Something went wrong logging in.', err)
                 }
             } else {
-                // show user message
+                setIsLoading(false)
                 setUserMsg('Something went wrong when logging in.')
             }
         } else {
-            // show user message
+            setIsLoading(false)
             setUserMsg('Enter a valid email.')
         }
     }
@@ -71,7 +74,7 @@ const Login: FC = () => {
                     />
                     <p className={styles.userMsg}>{userMsg}</p>
                     <button onClick={handleLoginWithEmail} className={styles.loginBtn}>
-                        {userMsg ? "Loading..." : "Sign In"}
+                        {isLoading ? "Loading..." : "Sign In"}
                     </button>
                 </div>
             </main>
