@@ -2,20 +2,12 @@ import {useRouter} from "next/router"
 import Modal from "react-modal"
 import styles from "@styles/Video.module.css"
 import cn from "classnames"
-import {InferGetStaticPropsType} from "next";
+import {GetStaticPropsContext, InferGetStaticPropsType} from "next";
 import {getYoutubeVideoById} from "@lib/videos";
 
 Modal.setAppElement("#__next")
 
-interface VideoProps {
-    title: string
-    publishTime: string
-    description: string
-    channelTitle: string
-    viewCount: number
-}
-
-export async function getStaticProps() {
+export async function getStaticProps({params}: GetStaticPropsContext) {
     // const video: VideoProps = {
     //     title: 'Cute dog',
     //     publishTime: '1990-01-01',
@@ -23,8 +15,11 @@ export async function getStaticProps() {
     //     channelTitle: 'Paramount',
     //     viewCount: 1000
     // }
-    const videoId = 'mYfJxlgR2jw'
-    const videoArray = await getYoutubeVideoById(videoId)
+    let videoArray = []
+    if (params) {
+        const videoId = typeof params.videoId === 'string' ? params.videoId : ''
+        videoArray = await getYoutubeVideoById(videoId)
+    }
 
     return {
         props: { video: videoArray.length > 0 ? videoArray[0] : {} },
@@ -43,7 +38,7 @@ export async function getStaticPaths() {
 
 const Video = ({video}: InferGetStaticPropsType<typeof getStaticProps>) => {
     const router = useRouter()
-    const {title, publishTime, description, channelTitle, viewCount} = video
+    const {id, title, publishTime, description, channelTitle, viewCount} = video
     return (
         <div className={styles.container}>
             <Modal
@@ -56,7 +51,7 @@ const Video = ({video}: InferGetStaticPropsType<typeof getStaticProps>) => {
                         className={styles.videoPlayer}
                         width="100%"
                         height="390"
-                        src={`https://www.youtube.com/embed/mYfJxlgR2jw?enablejsapi=1&origin=https://example.com&controls=0`}
+                        src={`https://www.youtube.com/embed/${id}?enablejsapi=1&origin=https://example.com&controls=0`}
                         frameBorder="0"
                 />
                 <div className={styles.modalBody}>
