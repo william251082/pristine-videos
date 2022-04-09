@@ -14,7 +14,6 @@ const Login: FC = () => {
     }
     const handleLoginWithEmail = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault()
-        console.log(e)
         if (email) {
             // route to dashboard
         } else {
