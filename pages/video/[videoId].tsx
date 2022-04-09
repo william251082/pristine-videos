@@ -3,6 +3,7 @@ import Modal from "react-modal"
 import styles from "@styles/Video.module.css"
 import cn from "classnames"
 import {InferGetStaticPropsType} from "next";
+import {getYoutubeVideoById} from "@lib/videos";
 
 Modal.setAppElement("#__next")
 
@@ -15,16 +16,18 @@ interface VideoProps {
 }
 
 export async function getStaticProps() {
-    const video: VideoProps = {
-        title: 'Cute dog',
-        publishTime: '1990-01-01',
-        description: 'A big red dog',
-        channelTitle: 'Paramount',
-        viewCount: 1000
-    }
+    // const video: VideoProps = {
+    //     title: 'Cute dog',
+    //     publishTime: '1990-01-01',
+    //     description: 'A big red dog',
+    //     channelTitle: 'Paramount',
+    //     viewCount: 1000
+    // }
+    const videoId = 'mYfJxlgR2jw'
+    const videoArray = await getYoutubeVideoById(videoId)
 
     return {
-        props: { video },
+        props: { video: videoArray.length > 0 ? videoArray[0] : {}, },
         revalidate: 10
     };
 }

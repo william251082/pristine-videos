@@ -7,7 +7,7 @@ import Loading from "@components/ui/Loading";
 
 function MyApp({Component, pageProps}: AppProps) {
     const router = useRouter()
-    const [isLoading, setIsLoading] = useState(true)
+    const [isLoading, setIsLoading] = useState(false)
 
     useEffect(() => {
         handleIsLoggedIn().then(r => r)
