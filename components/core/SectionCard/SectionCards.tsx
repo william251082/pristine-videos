@@ -13,15 +13,17 @@ const SectionCards: FC<SectionCardProps> = ({title, videos, size, shouldScale}) 
             <div className={cn(styles.cardWrapper)}>
                 {videos.map((video, idx) => {
                     return (
-                        <Link key={video.id} href={`/blog/${video.id}`}>
-                            <Card
-                                key={idx}
-                                id={idx}
-                                imgUrl={video.imgUrl}
-                                size={size}
-                                shouldScale={shouldScale}
-                                defaultImg={cardData.defaultImg}
-                            />
+                        <Link key={video.id} href={`/video/${video.id}`}>
+                            <a>
+                                <Card
+                                    key={idx}
+                                    id={idx}
+                                    imgUrl={video.imgUrl}
+                                    size={size}
+                                    shouldScale={shouldScale}
+                                    defaultImg={cardData.defaultImg}
+                                />
+                            </a>
                         </Link>
                     );
                 })}
