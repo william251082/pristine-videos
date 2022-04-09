@@ -23,6 +23,9 @@ const Login: FC = () => {
                 try {
                     if (magic) {
                         const didToken = await magic.auth.loginWithMagicLink({email})
+                        if (didToken) {
+                            router.push('/').then(r => r)
+                        }
                     }
                 } catch (err) {
                     console.error('Something went wrong logging in.', err)
