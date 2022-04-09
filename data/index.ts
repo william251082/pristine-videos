@@ -7,6 +7,7 @@ export const navData = {
     username: "hi@hi.com"
 }
 export const bannerData = {
+    videoId: 'vXk2Z1dy_gA',
     title: "Clifford",
     subTitle: "Cute dog",
     imgUrl: "/static/clifford.webp"

@@ -26,9 +26,11 @@ const Home = (
             </Head>
             <div className={styles.main}>
                 <Navbar />
-                <Banner title={bannerData.title}
-                        subTitle={bannerData.subTitle}
-                        imgUrl={bannerData.imgUrl}
+                <Banner
+                    videoId = {bannerData.videoId}
+                    title={bannerData.title}
+                    subTitle={bannerData.subTitle}
+                    imgUrl={bannerData.imgUrl}
                 />
                 <div className={styles.sectionWrapper}>
                     <SectionCards
