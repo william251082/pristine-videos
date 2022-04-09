@@ -3,8 +3,10 @@ import Head from "next/head";
 import Image from "next/image";
 import Link from 'next/link';
 import styles from "./Login.module.css";
+import {useRouter} from "next/router";
 
 const Login: FC = () => {
+    const router = useRouter()
     const [email, setEmail] = useState('')
     const [userMsg, setUserMsg] = useState('')
     const handleOnChangeEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -15,7 +17,13 @@ const Login: FC = () => {
     const handleLoginWithEmail = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault()
         if (email) {
-            // route to dashboard
+            if (email === 'dashboard@nj.ml') {
+                console.log('route to dashboard')
+                router.push('/').then(r => r)
+            } else {
+                // show user message
+                setUserMsg('Something went wrong when logging in.')
+            }
         } else {
             // show user message
             setUserMsg('Enter a valid email.')
