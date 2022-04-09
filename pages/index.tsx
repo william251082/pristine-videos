@@ -6,6 +6,7 @@ import Navbar from "@components/core/Nav";
 import {Banner} from "@components/core";
 import SectionCards from "@components/core/SectionCard";
 import {getPopularVideos, getVideos} from "@lib/videos";
+import {createMagic} from "@lib/magic-client";
 
 export async function getServerSideProps() {
     const disneyVideos = await getVideos('disney trailer');
@@ -18,6 +19,7 @@ export async function getServerSideProps() {
 const Home = (
     {disneyVideos, travelVideos, productivityVideos, popularVideos}: InferGetServerSidePropsType<typeof getServerSideProps>
 ) => {
+    console.log('magic setup', createMagic())
     return (
         <div className={styles.container}>
             <Head>
