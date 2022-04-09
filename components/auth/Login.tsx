@@ -1,4 +1,4 @@
-import React, {FC, useState} from "react";
+import React, {FC, useEffect, useState} from "react";
 import Head from "next/head";
 import Image from "next/image";
 import Link from 'next/link';
@@ -11,6 +11,19 @@ const Login: FC = () => {
     const [email, setEmail] = useState('')
     const [userMsg, setUserMsg] = useState('')
     const [isLoading, setIsLoading] = useState(false)
+
+    useEffect(() => {
+        const handleComplete = () => {
+            setIsLoading(false)
+        }
+        router.events.on('routeChangeComplete', handleComplete)
+
+        return () => {
+            router.events.off('routeChangeComplete', handleComplete)
+            router.events.off('routeChangeError', handleComplete)
+        }
+    }, [router])
+
     const handleOnChangeEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
         setUserMsg('')
         const email = e.target.value
