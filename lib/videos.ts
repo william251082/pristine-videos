@@ -1,3 +1,5 @@
+import videoTestData from "@data/videos.json"
+
 export interface VideoItem {
     statistics: number;
     kind: string
@@ -35,13 +37,16 @@ export interface VideoItem {
 }
 
 const getCommonVideos = async (url: string) => {
-    const YOUTUBE_API_KEY: string | undefined = process.env.YOUTUBE_API_KEY
-    try {
+    const fetchVideos = async(url: string) => {
+        const YOUTUBE_API_KEY: string | undefined = process.env.YOUTUBE_API_KEY
         const BASE_URL = 'youtube.googleapis.com/youtube/v3'
         const response = await fetch(
             `https://${BASE_URL}/${url}&maxResults=5&key=${YOUTUBE_API_KEY}`
         )
-        const data = await response.json()
+        return await response.json()
+    }
+    try {
+        const data = process.env.IS_DEV ? videoTestData : await fetchVideos(url)
 
         if (data.error) {
             console.error('Youtube API error.', data.error)

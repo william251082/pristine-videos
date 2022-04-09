@@ -4,17 +4,11 @@ import styles from "@styles/Video.module.css"
 import cn from "classnames"
 import {GetStaticPropsContext, InferGetStaticPropsType} from "next";
 import {getYoutubeVideoById} from "@lib/videos";
+import Navbar from "@components/core/Nav";
 
 Modal.setAppElement("#__next")
 
 export async function getStaticProps({params}: GetStaticPropsContext) {
-    // const video: VideoProps = {
-    //     title: 'Cute dog',
-    //     publishTime: '1990-01-01',
-    //     description: 'A big red dog',
-    //     channelTitle: 'Paramount',
-    //     viewCount: 1000
-    // }
     let videoArray = []
     if (params) {
         const videoId = typeof params.videoId === 'string' ? params.videoId : ''
@@ -41,6 +35,7 @@ const Video = ({video}: InferGetStaticPropsType<typeof getStaticProps>) => {
     const {id, title, publishTime, description, channelTitle, viewCount} = video
     return (
         <div className={styles.container}>
+            <Navbar />
             <Modal
                 isOpen={true}
                 contentLabel="Watch the video"
