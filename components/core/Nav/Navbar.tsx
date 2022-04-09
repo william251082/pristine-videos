@@ -19,8 +19,9 @@ const Navbar: FC<NavbarProps> = () => {
         try {
             if (magic) {
                 const {email} = await magic.user.getMetadata()
-                setUsername(email)
-                console.log(email)
+                if (email) {
+                    setUsername(email)
+                }
             }
         } catch (err) {
             console.error('Error retrieving email.', err)
@@ -38,6 +39,18 @@ const Navbar: FC<NavbarProps> = () => {
     const handleShowDropdown = (e: React.MouseEvent<HTMLButtonElement>): void => {
         e.preventDefault()
         setShowDropdown(!showDropdown)
+    }
+    const handleSignOut = async (e: React.MouseEvent<HTMLAnchorElement>) => {
+        e.preventDefault()
+        try {
+            if (magic) {
+                await magic.user.logout()
+                router.push('/login').then(r => r)
+            }
+        } catch(err) {
+            console.error('Error retrieving email.', err)
+            router.push('/login').then(r => r)
+        }
     }
     return (
         <div className={styles.container}>
@@ -83,7 +96,7 @@ const Navbar: FC<NavbarProps> = () => {
                             <div className={styles.navDropdown}>
                                 <div>
                                     <Link href="/login">
-                                        <a className={styles.linkName}>Sign out</a>
+                                        <a className={styles.linkName} onClick={handleSignOut}>Sign out</a>
                                     </Link>
                                     <div className={styles.lineWrapper}>
                                     </div>
