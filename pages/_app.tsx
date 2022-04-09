@@ -23,14 +23,14 @@ function MyApp({Component, pageProps}: AppProps) {
     }, [])
 
     const handleIsLoggedIn = async () => {
-        // if (magic) {
-        //     const isLoggedIn = await magic.user.isLoggedIn()
-        //     if (isLoggedIn) {
-        //         router.push('/').then(r => r)
-        //     } else {
-        //         router.push('/login').then(r => r)
-        //     }
-        // }
+        if (magic) {
+            const isLoggedIn = await magic.user.isLoggedIn()
+            if (isLoggedIn) {
+                router.push('/').then(r => r)
+            } else {
+                router.push('/login').then(r => r)
+            }
+        }
     }
 
     return isLoading ? <Loading /> : <Component {...pageProps} />

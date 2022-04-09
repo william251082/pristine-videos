@@ -4,27 +4,30 @@ import {SectionCardProps} from "./SectionCardTypes";
 import cn from "classnames";
 import {Card} from "@components/core";
 import {cardData} from "@data/index";
+import Link from "next/link";
 
 const SectionCards: FC<SectionCardProps> = ({title, videos, size, shouldScale}) => {
-  return (
-    <section className={styles.container}>
-      <h2 className={styles.title}>{title}</h2>
-      <div className={cn(styles.cardWrapper)}>
-          {videos.map((video, idx) => {
-              return (
-                <Card
-                    key={idx}
-                    id={idx}
-                    imgUrl={video.imgUrl}
-                    size={size}
-                    shouldScale={shouldScale}
-                    defaultImg={cardData.defaultImg}
-                />
-              );
-          })}
-      </div>
-    </section>
-  );
+    return (
+        <section className={styles.container}>
+            <h2 className={styles.title}>{title}</h2>
+            <div className={cn(styles.cardWrapper)}>
+                {videos.map((video, idx) => {
+                    return (
+                        <Link key={video.id} href={`/blog/${video.id}`}>
+                            <Card
+                                key={idx}
+                                id={idx}
+                                imgUrl={video.imgUrl}
+                                size={size}
+                                shouldScale={shouldScale}
+                                defaultImg={cardData.defaultImg}
+                            />
+                        </Link>
+                    );
+                })}
+            </div>
+        </section>
+    );
 };
 
 export default SectionCards;
