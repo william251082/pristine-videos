@@ -26,14 +26,9 @@ export default async function login(req:NextApiRequest, res: NextApiResponse<Obj
                 }
             }, jwtSecret)
             const isNewUserQuery = await isNewUser(token, metaData.issuer)
-            if (isNewUserQuery) {
-                await createNewUser(token, metaData)
-                isNewUserQuery && (await createNewUser(token, metaData))
-                res.send({done: true, msg: didToken})
-                setTokenCookie(token, res);
-            } else {
-                res.send({done: true, msg: 'not a new user'})
-            }
+            isNewUserQuery && (await createNewUser(token, metaData))
+            setTokenCookie(token, res);
+            res.send({done: true})
         } catch (err) {
             console.error('Something went wrong logging in.', err)
             res.status(500).send({done: true})
