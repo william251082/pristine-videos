@@ -5,27 +5,25 @@ import Navbar from "@components/core/Nav";
 
 export async function getServerSideProps({params}: GetServerSidePropsContext) {
 
-  return {
-    props: {
-
-    },
-  };
+    return {
+        props: {},
+    };
 }
 
 const MyList = () => {
-  return (
-    <div>
-      <Head>
-        <title>My list</title>
-      </Head>
-      <main className={styles.main}>
-        <Navbar />
-        <div className={styles.sectionWrapper}>
+    return (
+        <div>
+            <Head>
+                <title>My list</title>
+            </Head>
+            <main className={styles.main}>
+                <Navbar/>
+                <div className={styles.sectionWrapper}>
 
+                </div>
+            </main>
         </div>
-      </main>
-    </div>
-  );
+    );
 };
 
 export default MyList;
