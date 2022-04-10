@@ -10,6 +10,7 @@ const Navbar: FC<NavbarProps> = () => {
     const router = useRouter()
     const [showDropdown, setShowDropdown] = useState(false)
     const [username, setUsername] = useState<string | null>('')
+    const [didToken, setDidToken] = useState('')
 
     useEffect(() => {
         handleEmail().then(r => r)
@@ -22,6 +23,7 @@ const Navbar: FC<NavbarProps> = () => {
                 const didToken = await magic.user.getIdToken()
                 if (email) {
                     setUsername(email)
+                    setDidToken(didToken)
                 }
             }
         } catch (err) {

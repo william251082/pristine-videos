@@ -1,5 +1,7 @@
 import {NextApiRequest, NextApiResponse} from "next";
 import {magicAdmin} from "@lib/magic-server";
+import jwt from "jsonwebtoken";
+import {isNewUser} from "@lib/db/hasura";
 
 export interface ObjectExtend {
     [k: string]: any;
@@ -8,11 +10,22 @@ export interface ObjectExtend {
 export default async function login(req:NextApiRequest, res: NextApiResponse<ObjectExtend>) {
     if (req.method === 'POST') {
         try {
+            const jwtSecret = typeof process.env.NEXT_PUBLIC_JWT_SECRET !== "undefined" ? process.env.NEXT_PUBLIC_JWT_SECRET : ''
             const auth = req.headers.authorization
             const didToken = auth ? auth.substring(7) : ''
-            // invoke magic
             const metaData = await magicAdmin.users.getMetadataByToken(didToken)
-            res.send({done: true})
+            const token = jwt.sign({
+                ...metaData,
+                "iat": Math.floor(Date.now()/1000),
+                "exp": Math.floor(Date.now()/1000 + 7 * 24 * 60 * 60),
+                "https://hasura.io/jwt/claims": {
+                    "x-hasura-allowed-roles": ["admin","user"],
+                    "x-hasura-default-role": "user",
+                    "x-hasura-user-id": `${metaData.issuer}`
+                }
+            }, jwtSecret)
+            const isNewUserQuery = await isNewUser(token, metaData.issuer)
+            res.send({done: true, isNewUser: isNewUserQuery})
         } catch (err) {
             console.error('Something went wrong logging in.', err)
             res.status(500).send({done: true})
