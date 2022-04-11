@@ -32,26 +32,34 @@ const Login: FC = () => {
     const handleLoginWithEmail = async (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault()
         if (email) {
-            if (email === 'pristine.web.dev@gmail.com') {
-                try {
-                    setIsLoading(true)
-                    if (magic) {
-                        const didToken = await magic.auth.loginWithMagicLink({email})
-                        if (didToken) {
+            try {
+                setIsLoading(true)
+                if (magic) {
+                    const didToken = await magic.auth.loginWithMagicLink({email})
+                    if (didToken) {
+                        const response = await fetch("/api/login", {
+                            method: "POST",
+                            headers: {
+                                "Authorization": `Bearer ${didToken}`,
+                                "Content-Type": "application/json",
+                            },
+                        })
+                        const loggedInResponse = await response.json()
+                        if (loggedInResponse.done) {
+                            await router.push("/")
+                        } else {
                             setIsLoading(false)
-                            router.push('/').then(r => r)
+                            setUserMsg("Something went wrong logging in")
                         }
                     }
-                } catch (err) {
-                    console.error('Something went wrong logging in.', err)
                 }
-            } else {
+            } catch (error) {
+                console.error("Something went wrong logging in", error)
                 setIsLoading(false)
-                setUserMsg('Something went wrong when logging in.')
             }
         } else {
             setIsLoading(false)
-            setUserMsg('Enter a valid email.')
+            setUserMsg("Enter a valid email address")
         }
     }
     return (
