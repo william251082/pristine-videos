@@ -41,8 +41,8 @@ const Login: FC = () => {
                             method: "POST",
                             headers: {
                                 "Authorization": `Bearer ${didToken}`,
-                                "Content-Type": "application/json",
-                            },
+                                "Content-Type": "application/json"
+                            }
                         })
                         const loggedInResponse = await response.json()
                         if (loggedInResponse.done) {
