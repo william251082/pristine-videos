@@ -5,6 +5,8 @@ import cn from "classnames"
 import {GetStaticPropsContext, InferGetStaticPropsType} from "next";
 import {getYoutubeVideoById} from "@lib/videos";
 import Navbar from "@components/core/Nav";
+import DisLike from "@components/icons/dislike-icon";
+import Like from "@components/icons/like-icon";
 
 Modal.setAppElement("#__next")
 
@@ -50,6 +52,14 @@ const Video = ({video}: InferGetStaticPropsType<typeof getStaticProps>) => {
                         src={`https://www.youtube.com/embed/${id}?enablejsapi=1&origin=https://example.com&controls=0`}
                         frameBorder="0"
                 />
+                <div className={styles.likeDislikeBtnWrapper}>
+                    <div className={styles.btnWrapper}>
+                        <button><Like /></button>
+                    </div>
+                    <div className={styles.btnWrapper}>
+                        <button><DisLike /></button>
+                    </div>
+                </div>
                 <div className={styles.modalBody}>
                     <div className={styles.modalBodyContent}>
                         <div className={styles.col1}>
