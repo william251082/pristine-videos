@@ -3,12 +3,9 @@ import {magicAdmin} from "@lib/magic-server";
 import jwt from "jsonwebtoken";
 import {createNewUser, isNewUser} from "@lib/db/hasura";
 import {setTokenCookie} from "@lib/cookies";
+import {LoginResponse} from "@pages/api/types";
 
-export interface ObjectExtend {
-    [k: string]: any;
-}
-
-export default async function login(req:NextApiRequest, res: NextApiResponse<ObjectExtend>) {
+export default async function login(req:NextApiRequest, res: NextApiResponse<LoginResponse>) {
     if (req.method === 'POST') {
         try {
             const jwtSecret = typeof process.env.NEXT_PUBLIC_JWT_SECRET !== "undefined" ? process.env.NEXT_PUBLIC_JWT_SECRET : ''

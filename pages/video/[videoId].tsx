@@ -7,6 +7,7 @@ import {getYoutubeVideoById} from "@lib/videos";
 import Navbar from "@components/core/Nav";
 import DisLike from "@components/icons/dislike-icon";
 import Like from "@components/icons/like-icon";
+import React, {useState} from "react";
 
 Modal.setAppElement("#__next")
 
@@ -35,6 +36,18 @@ export async function getStaticPaths() {
 const Video = ({video}: InferGetStaticPropsType<typeof getStaticProps>) => {
     const router = useRouter()
     const {id, title, publishTime, description, channelTitle, viewCount} = video
+    const [toggleLike, setToggleLike] = useState(false);
+    const [toggleDisLike, setToggleDisLike] = useState(false);
+    const handleToggleDislike = () => {
+        setToggleDisLike(!toggleDisLike)
+        setToggleLike(toggleDisLike)
+    };
+
+    const handleToggleLike = () => {
+        const val = !toggleLike
+        setToggleLike(val)
+        setToggleDisLike(toggleLike)
+    };
     return (
         <div className={styles.container}>
             <Navbar />
@@ -54,10 +67,10 @@ const Video = ({video}: InferGetStaticPropsType<typeof getStaticProps>) => {
                 />
                 <div className={styles.likeDislikeBtnWrapper}>
                     <div className={styles.btnWrapper}>
-                        <button><Like /></button>
+                        <button onClick={handleToggleLike}><Like selected={toggleLike} /></button>
                     </div>
                     <div className={styles.btnWrapper}>
-                        <button><DisLike /></button>
+                        <button onClick={handleToggleDislike}><DisLike selected={toggleDisLike} /></button>
                     </div>
                 </div>
                 <div className={styles.modalBody}>
