@@ -28,7 +28,7 @@ export default async function login(req:NextApiRequest, res: NextApiResponse<Log
             res.send({done: true})
         } catch (err) {
             console.error('Something went wrong logging in.', err)
-            res.status(500).send({done: true})
+            res.status(500).send({done: false})
         }
     } else {
         res.send({done: false})
