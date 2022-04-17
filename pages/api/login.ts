@@ -4,11 +4,11 @@ import jwt from "jsonwebtoken";
 import {createNewUser, isNewUser} from "@lib/db/hasura";
 import {setTokenCookie} from "@lib/cookies";
 import {LoginResponse} from "@pages/api/types";
+import {jwtSecret} from "@lib/jwt";
 
 export default async function login(req:NextApiRequest, res: NextApiResponse<LoginResponse>) {
     if (req.method === 'POST') {
         try {
-            const jwtSecret = typeof process.env.NEXT_PUBLIC_JWT_SECRET !== "undefined" ? process.env.NEXT_PUBLIC_JWT_SECRET : ''
             const auth = req.headers.authorization
             const didToken = auth ? auth.substring(7) : ''
             const metaData = await magicAdmin.users.getMetadataByToken(didToken)
