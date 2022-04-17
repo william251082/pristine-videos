@@ -19,7 +19,7 @@ const Navbar: FC<NavbarProps> = () => {
     const handleEmail = async () => {
         try {
             if (magic) {
-                const {email, issuer} = await magic.user.getMetadata()
+                const {email} = await magic.user.getMetadata()
                 const didToken = await magic.user.getIdToken()
                 if (email) {
                     setUsername(email)
