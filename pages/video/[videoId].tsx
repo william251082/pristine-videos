@@ -35,19 +35,37 @@ export async function getStaticPaths() {
 
 const Video = ({video}: InferGetStaticPropsType<typeof getStaticProps>) => {
     const router = useRouter()
-    const {id, title, publishTime, description, channelTitle, viewCount} = video
+    const videoId = router.query.videoId
+    const {title, publishTime, description, channelTitle, viewCount} = video
     const [toggleLike, setToggleLike] = useState(false);
     const [toggleDisLike, setToggleDisLike] = useState(false);
-    const handleToggleDislike = () => {
+    const handleToggleDislike = async () => {
+        const val = toggleDisLike
         setToggleDisLike(!toggleDisLike)
         setToggleLike(toggleDisLike)
+        await toggleCall(val)
     };
 
-    const handleToggleLike = () => {
+    const handleToggleLike = async () => {
         const val = !toggleLike
         setToggleLike(val)
         setToggleDisLike(toggleLike)
+        await toggleCall(val)
     };
+
+    const toggleCall = async (val: boolean) => {
+        const response = await fetch('/api/stats', {
+            method: 'POST',
+            body: JSON.stringify({
+                favourited: val ? 1 : 0, videoId
+            }),
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            }
+        })
+        await response.json()
+    }
     return (
         <div className={styles.container}>
             <Navbar />
@@ -62,7 +80,7 @@ const Video = ({video}: InferGetStaticPropsType<typeof getStaticProps>) => {
                         className={styles.videoPlayer}
                         width="100%"
                         height="390"
-                        src={`https://www.youtube.com/embed/${id}?enablejsapi=1&origin=https://example.com&controls=0`}
+                        src={`https://www.youtube.com/embed/${videoId}?enablejsapi=1&origin=https://example.com&controls=0`}
                         frameBorder="0"
                 />
                 <div className={styles.likeDislikeBtnWrapper}>
