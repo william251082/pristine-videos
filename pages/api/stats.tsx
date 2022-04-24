@@ -1,5 +1,5 @@
 import {NextApiRequest} from "next";
-import {NextApiResponseStats} from "@pages/api/types";
+import {DecodedToken, NextApiResponseStats} from "@pages/api/types";
 import jwt from "jsonwebtoken";
 import {jwtSecret} from "@lib/jwt";
 import {findVideoIdByUser} from "@lib/db/hasura";
@@ -14,10 +14,11 @@ export default async function stats(req:NextApiRequest, res: NextApiResponseStat
                 const token = cookies.token
                 if (token !== undefined) {
                     const decoded = jwt.verify(token, jwtSecret)
-                    const userId = 'william'
-                    const videoId = 'vXk2Z1dy_gA'
+                    const decodedToken: DecodedToken = typeof decoded !== 'string' ? decoded : undefined
+                    const userId = typeof decodedToken?.issuer === 'string' ? decodedToken?.issuer : ''
+                    const videoId = typeof req.query.videoId === 'string' ? req.query.videoId : ''
                     const findVideoId = await findVideoIdByUser(token, userId, videoId)
-                    res.send({msg: "it works", decoded, findVideoId})
+                    res.send({msg: "it works", decodedToken, findVideoId})
                 }
             }
         } catch (error) {
