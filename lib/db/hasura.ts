@@ -6,7 +6,7 @@ interface GqlPayload {
     publicAddress?: string | null
     userId?: string | null
     videoId?: string | null
-    favourited?: boolean | null
+    favourited?: number | null
     watched?: boolean
 }
 
@@ -116,7 +116,7 @@ export async function findVideoIdByUser(token: string, userId: string, videoId: 
     }
 }
 
-export async function insertStats(
+export async function insertStat(
     token: string,
     { favourited, userId, watched, videoId }: GqlPayload
 ) {
@@ -136,13 +136,13 @@ export async function insertStats(
 
     return await queryHasuraGql(
         operationsDoc,
-        "insertStats",
+        "insertStat",
         { favourited, userId, watched, videoId },
         token
     );
 }
 
-export async function updateStats(
+export async function updateStat(
     token: string,
     { favourited, userId, watched, videoId }: GqlPayload
 ) {
@@ -165,7 +165,7 @@ export async function updateStats(
 `;
     return await queryHasuraGql(
         operationsDoc,
-        "updateStats",
+        "updateStat",
         { favourited, userId, watched, videoId },
         token
     );

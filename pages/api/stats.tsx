@@ -2,7 +2,7 @@ import {NextApiRequest} from "next";
 import {DecodedToken, NextApiResponseStats} from "@pages/api/types";
 import jwt from "jsonwebtoken";
 import {jwtSecret} from "@lib/jwt";
-import {findVideoIdByUser} from "@lib/db/hasura";
+import {findVideoIdByUser, insertStat, updateStat} from "@lib/db/hasura";
 
 export default async function stats(req:NextApiRequest, res: NextApiResponseStats) {
     if (req.method === 'POST') {
@@ -19,11 +19,17 @@ export default async function stats(req:NextApiRequest, res: NextApiResponseStat
                     const videoId = typeof req.query.videoId === 'string' ? req.query.videoId : ''
                     const doesStatExist = await findVideoIdByUser(token, userId, videoId)
                     if (doesStatExist) {
-                        // update it
+                        const updatedStatRes = await updateStat(token, {
+                            favourited: 0, watched: false, userId, videoId
+                        })
+                        res.send({msg: "it works", updatedStatRes})
                     } else {
-                        // add it
+                        const insertedStatRes = await insertStat(token, {
+                            favourited: 0, watched: false, userId, videoId
+                        })
+                        res.send({msg: "it works", insertedStatRes})
                     }
-                    res.send({msg: "it works", decodedToken, doesStatExist})
+
                 }
             }
         } catch (error) {
