@@ -15,11 +15,11 @@ export async function getServerSideProps() {
     const travelVideos = await getVideos('travel');
     const productivityVideos = await getVideos('productivity');
     const popularVideos = await getPopularVideos();
-    return { props: {disneyVideos, travelVideos, productivityVideos, popularVideos} }
+    return { props: {disneyVideos, travelVideos, productivityVideos, popularVideos, watchItAgainVideos} }
 }
 
 const Home = (
-    {disneyVideos, travelVideos, productivityVideos, popularVideos}: InferGetServerSidePropsType<typeof getServerSideProps>
+    {disneyVideos, travelVideos, productivityVideos, popularVideos, watchItAgainVideos}: InferGetServerSidePropsType<typeof getServerSideProps>
 ) => {
     return (
         <div className={styles.container}>
@@ -36,6 +36,13 @@ const Home = (
                     imgUrl={bannerData.imgUrl}
                 />
                 <div className={styles.sectionWrapper}>
+                    <SectionCards
+                        title={'Watch It Again'}
+                        videos={watchItAgainVideos}
+                        size={sectionCardData.size}
+                        shouldWrap={sectionCardData.shouldWrap}
+                        shouldScale={sectionCardData.shouldScale}
+                    />
                     <SectionCards
                         title={sectionCardData.title}
                         videos={disneyVideos}
