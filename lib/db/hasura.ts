@@ -4,6 +4,8 @@ interface Variables {
     issuer?: string | null
     email?: string | null
     publicAddress?: string | null
+    userId?: string | null
+    videoId?: string | null
 }
 
 export async function queryHasuraGql(operationsDoc: string, operationName: string, variables: Variables, token: string) {
@@ -41,7 +43,7 @@ export async function isNewUser(token: string, issuer: string | null) {
                 issuer
             }
         }
-    `;
+    `
     try {
         const response = await queryHasuraGql(
             operationsDoc,
@@ -66,7 +68,7 @@ export async function createNewUser(token: string, metadata: MagicUserMetadata) 
                 }
             }
         }
-    `;
+    `
     const { issuer, email, publicAddress } = metadata
     try {
         return await queryHasuraGql(
@@ -76,6 +78,33 @@ export async function createNewUser(token: string, metadata: MagicUserMetadata) 
                 issuer,
                 email,
                 publicAddress,
+            },
+            token
+        )
+    } catch (err) {
+        console.error('Error in createNewUser', err)
+    }
+}
+
+export async function findVideoIdByUser(token: string, userId: string, videoId: string) {
+    const operationsDoc = `
+        query findVideoIdByUserId($userId: String!, $videoId: String!) {
+            stat(where: {userId: {_eq: $userId}, videoId: {_eq: $videoId}}) {
+                id
+                userId
+                videoId
+                favourited
+                watched
+            }
+        }
+    `
+    try {
+        return await queryHasuraGql(
+            operationsDoc,
+            "findVideoIdByUserId",
+            {
+                userId,
+                videoId
             },
             token
         )
