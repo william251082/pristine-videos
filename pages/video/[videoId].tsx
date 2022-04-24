@@ -37,7 +37,7 @@ const Video = ({video}: InferGetStaticPropsType<typeof getStaticProps>) => {
     const router = useRouter()
     const videoId = router.query.videoId
     const {title, publishTime, description, channelTitle, viewCount} = video
-    const [toggleLike, setToggleLike] = useState(false);
+    const [toggleLike, setToggleLike] = useState(true);
     const [toggleDisLike, setToggleDisLike] = useState(false);
     const handleToggleDislike = async () => {
         const val = toggleDisLike
@@ -47,7 +47,7 @@ const Video = ({video}: InferGetStaticPropsType<typeof getStaticProps>) => {
     };
 
     const handleToggleLike = async () => {
-        const val = !toggleLike
+        const val = toggleLike
         setToggleLike(val)
         setToggleDisLike(toggleLike)
         await toggleCall(val)
