@@ -1,7 +1,8 @@
 import videoTestData from "@data/videos.json"
+import {getWatchedVideos} from "@lib/db/hasura";
 
 export interface VideoItem {
-    statistics: number;
+    statistics: number
     kind: string
     etag: string
     id: {
@@ -82,6 +83,20 @@ export const getPopularVideos = () => {
 }
 
 export const getYoutubeVideoById = (videoId: string) => {
-    const URL = `videos?part=snippet%2CcontentDetails%2Cstatistics&id=${videoId}`;
-    return getCommonVideos(URL);
+    const URL = `videos?part=snippet%2CcontentDetails%2Cstatistics&id=${videoId}`
+    return getCommonVideos(URL)
 }
+
+interface Video {
+    videoId: string
+}
+
+export const getWatchItAgainVideos = async (userId: string, token: string) => {
+    const videos = await getWatchedVideos(userId, token)
+    return videos?.map(({videoId}: Video) => {
+        return {
+            id: videoId,
+            imgUrl: `https://i.ytimg.com/vi/${videoId}/maxresdefault.jpg`,
+        };
+    }) || []
+};
