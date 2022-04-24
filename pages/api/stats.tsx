@@ -29,7 +29,6 @@ export default async function stats(req:NextApiRequest, res: NextApiResponseStat
                         })
                         res.send({msg: "it works", insertedStatRes})
                     }
-
                 }
             }
         } catch (error) {
