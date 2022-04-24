@@ -17,7 +17,8 @@ export default async function stats(req:NextApiRequest, res: NextApiResponseStat
                     const decoded = jwt.verify(token, jwtSecret)
                     const decodedToken: DecodedToken = typeof decoded !== 'string' ? decoded : undefined
                     const userId = typeof decodedToken?.issuer === 'string' ? decodedToken?.issuer : ''
-                    const doesStatExist = await findVideoIdByUser(token, userId, videoId)
+                    const findVideo = await findVideoIdByUser(token, userId, videoId)
+                    const doesStatExist = findVideo?.length > 0
                     if (doesStatExist) {
                         const updatedStatRes = await updateStat(token, {
                             favourited, watched, userId, videoId
@@ -28,6 +29,31 @@ export default async function stats(req:NextApiRequest, res: NextApiResponseStat
                             favourited, watched, userId, videoId
                         })
                         res.send({msg: "inserted", insertedStatRes})
+                    }
+                }
+            }
+        } catch (error) {
+            console.error('Error occurred in /stats', error)
+            res.status(500).send({done: false, error})
+        }
+    } else {
+        try {
+            const cookies = req.cookies
+            if (cookies === undefined) {
+                res.status(403).send({})
+            } else {
+                const token = cookies.token
+                if (token !== undefined) {
+                    const {videoId} = req.body
+                    const decoded = jwt.verify(token, jwtSecret)
+                    const decodedToken: DecodedToken = typeof decoded !== 'string' ? decoded : undefined
+                    const userId = typeof decodedToken?.issuer === 'string' ? decodedToken?.issuer : ''
+                    const findVideo = await findVideoIdByUser(token, userId, videoId)
+                    const doesStatExist = findVideo?.length > 0
+                    if (doesStatExist) {
+                        res.send(findVideo)
+                    } else {
+                        res.send({user: null, msg: 'Video not found.'})
                     }
                 }
             }
