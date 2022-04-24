@@ -52,24 +52,24 @@ const Video = ({video}: InferGetStaticPropsType<typeof getStaticProps>) => {
         setToggleDisLike(toggleLike)
         await toggleCall(val)
     };
-
-    useEffect(() => {
-        const fetchFavourite = async () => {
-            const response = await fetch(`/api/stats?videoId=${videoId}`, {method: 'GET'})
-            const data = await response.json()
-            if (data.length > 0) {
-                const favourited = data[0].favourited
-                if (favourited === 1) {
-                    setToggleLike(true)
-                    setToggleDisLike(false)
-                } else if (favourited === 0) {
-                    setToggleLike(false)
-                    setToggleDisLike(true)
-                }
+    const fetchFavourite = useCallback(async () => {
+        const response = await fetch(`/api/stats?videoId=${videoId}`, {method: 'GET'})
+        const data = await response.json()
+        if (data.length > 0) {
+            const favourited = data[0].favourited
+            if (favourited === 1) {
+                setToggleLike(true)
+                setToggleDisLike(false)
+            } else if (favourited === 0) {
+                setToggleLike(false)
+                setToggleDisLike(true)
             }
         }
-        fetchFavourite().catch(console.error)
     }, [videoId])
+
+    useEffect(() => {
+        fetchFavourite().catch(console.error)
+    }, [fetchFavourite])
 
     const toggleCall = async (val: boolean) => {
         const response = await fetch('/api/stats', {
