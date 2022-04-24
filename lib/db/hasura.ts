@@ -1,14 +1,16 @@
 import { MagicUserMetadata } from "@magic-sdk/admin";
 
-interface Variables {
+interface GqlPayload {
     issuer?: string | null
     email?: string | null
     publicAddress?: string | null
     userId?: string | null
     videoId?: string | null
+    favourited?: boolean | null
+    watched?: boolean
 }
 
-export async function queryHasuraGql(operationsDoc: string, operationName: string, variables: Variables, token: string) {
+export async function queryHasuraGql(operationsDoc: string, operationName: string, variables: GqlPayload, token: string) {
     const hasuraToken = process.env.NEXT_PUBLIC_HASURA_ADMIN_SECRET !== undefined ? process.env.NEXT_PUBLIC_HASURA_ADMIN_SECRET : ''
     const hasuraUrl = process.env.NEXT_PUBLIC_HASURA_ADMIN_URL !== undefined ? process.env.NEXT_PUBLIC_HASURA_ADMIN_URL : ''
     try {
@@ -112,6 +114,61 @@ export async function findVideoIdByUser(token: string, userId: string, videoId: 
     } catch (err) {
         console.error('Error in createNewUser', err)
     }
+}
+
+export async function insertStats(
+    token: string,
+    { favourited, userId, watched, videoId }: GqlPayload
+) {
+    const operationsDoc = `
+        mutation insertStat($favourited: Int!, $userId: String!, $watched: Boolean!, $videoId: String!) {
+            insert_stat_one(object: {
+                favourited: $favourited, 
+                userId: $userId, 
+                watched: $watched, 
+                videoId: $videoId
+            }) {
+                favourited
+                userId
+            }
+        }
+    `;
+
+    return await queryHasuraGql(
+        operationsDoc,
+        "insertStats",
+        { favourited, userId, watched, videoId },
+        token
+    );
+}
+
+export async function updateStats(
+    token: string,
+    { favourited, userId, watched, videoId }: GqlPayload
+) {
+    const operationsDoc = `
+    mutation updateStat($favourited: Int!, $userId: String!, $watched: Boolean!, $videoId: String!) {
+        update_stat(
+            _set: {watched: $watched, favourited: $favourited}, 
+            where: {
+                userId: {_eq: $userId}, 
+                videoId: {_eq: $videoId}
+            }) {
+            returning {
+                favourited,
+                userId,
+                watched,
+                videoId
+            }
+        }
+    }
+`;
+    return await queryHasuraGql(
+        operationsDoc,
+        "updateStats",
+        { favourited, userId, watched, videoId },
+        token
+    );
 }
 
 export {}
