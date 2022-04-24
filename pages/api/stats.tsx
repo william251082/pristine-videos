@@ -17,8 +17,13 @@ export default async function stats(req:NextApiRequest, res: NextApiResponseStat
                     const decodedToken: DecodedToken = typeof decoded !== 'string' ? decoded : undefined
                     const userId = typeof decodedToken?.issuer === 'string' ? decodedToken?.issuer : ''
                     const videoId = typeof req.query.videoId === 'string' ? req.query.videoId : ''
-                    const findVideoId = await findVideoIdByUser(token, userId, videoId)
-                    res.send({msg: "it works", decodedToken, findVideoId})
+                    const doesStatExist = await findVideoIdByUser(token, userId, videoId)
+                    if (doesStatExist) {
+                        // update it
+                    } else {
+                        // add it
+                    }
+                    res.send({msg: "it works", decodedToken, doesStatExist})
                 }
             }
         } catch (error) {

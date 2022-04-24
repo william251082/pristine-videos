@@ -99,7 +99,7 @@ export async function findVideoIdByUser(token: string, userId: string, videoId: 
         }
     `
     try {
-        return await queryHasuraGql(
+        const response = await queryHasuraGql(
             operationsDoc,
             "findVideoIdByUserId",
             {
@@ -108,6 +108,7 @@ export async function findVideoIdByUser(token: string, userId: string, videoId: 
             },
             token
         )
+        return response?.data?.stat?.length > 0
     } catch (err) {
         console.error('Error in createNewUser', err)
     }
