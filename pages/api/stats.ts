@@ -9,18 +9,19 @@ export default async function stats(req:NextApiRequest, res: NextApiResponseStat
     let userId: string = ''
     let videoId: string = ''
     let doesStatExist: boolean = false
-    let findVideo: null = null
+    let findVideo: [] = []
     try {
         const cookies = req.cookies
         if (cookies === undefined) {
             res.status(403).send({})
         } else {
+            const inputParams = req.method === 'POST' ? req.body : req.query
             token = cookies.token
-            videoId = req.body.videoId
+            videoId = inputParams.videoId
             const decoded = jwt.verify(token, jwtSecret)
             const decodedToken: DecodedToken = typeof decoded !== 'string' ? decoded : undefined
             userId = typeof decodedToken?.issuer === 'string' ? decodedToken?.issuer : ''
-            const findVideo = await findVideoIdByUser(token, userId, videoId)
+            findVideo = await findVideoIdByUser(token, userId, videoId)
             doesStatExist = findVideo?.length > 0
         }
         if (req.method === 'POST') {
@@ -40,6 +41,7 @@ export default async function stats(req:NextApiRequest, res: NextApiResponseStat
             if (doesStatExist) {
                 res.send(findVideo)
             } else {
+                res.status(404)
                 res.send({user: null, msg: 'Video not found.'})
             }
         }
