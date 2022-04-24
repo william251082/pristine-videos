@@ -47,7 +47,7 @@ const Video = ({video}: InferGetStaticPropsType<typeof getStaticProps>) => {
     };
 
     const handleToggleLike = async () => {
-        const val = toggleLike
+        const val = !toggleLike
         setToggleLike(val)
         setToggleDisLike(toggleLike)
         await toggleCall(val)
