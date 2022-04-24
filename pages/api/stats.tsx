@@ -13,21 +13,21 @@ export default async function stats(req:NextApiRequest, res: NextApiResponseStat
             } else {
                 const token = cookies.token
                 if (token !== undefined) {
+                    const {videoId, favourited, watched = true} = req.body
                     const decoded = jwt.verify(token, jwtSecret)
                     const decodedToken: DecodedToken = typeof decoded !== 'string' ? decoded : undefined
                     const userId = typeof decodedToken?.issuer === 'string' ? decodedToken?.issuer : ''
-                    const videoId = typeof req.query.videoId === 'string' ? req.query.videoId : ''
                     const doesStatExist = await findVideoIdByUser(token, userId, videoId)
                     if (doesStatExist) {
                         const updatedStatRes = await updateStat(token, {
-                            favourited: 0, watched: false, userId, videoId
+                            favourited, watched, userId, videoId
                         })
-                        res.send({msg: "it works", updatedStatRes})
+                        res.send({msg: "updated", updatedStatRes})
                     } else {
                         const insertedStatRes = await insertStat(token, {
-                            favourited: 0, watched: false, userId, videoId
+                            favourited, watched, userId, videoId
                         })
-                        res.send({msg: "it works", insertedStatRes})
+                        res.send({msg: "inserted", insertedStatRes})
                     }
                 }
             }
