@@ -13,23 +13,22 @@ const Navbar: FC<NavbarProps> = () => {
     const [didToken, setDidToken] = useState('')
 
     useEffect(() => {
-        handleEmail().catch(console.error)
-    }, [])
-
-    const handleEmail = async () => {
-        try {
-            if (magic) {
-                const {email} = await magic.user.getMetadata()
-                const didToken = await magic.user.getIdToken()
-                if (email) {
-                    setUsername(email)
-                    setDidToken(didToken)
+        const handleEmail = async () => {
+            try {
+                if (magic) {
+                    const {email} = await magic.user.getMetadata()
+                    const didToken = await magic.user.getIdToken()
+                    if (email) {
+                        setUsername(email)
+                        setDidToken(didToken)
+                    }
                 }
+            } catch (err) {
+                console.error('Error retrieving email.', err)
             }
-        } catch (err) {
-            console.error('Error retrieving email.', err)
         }
-    }
+        handleEmail().catch(console.error)
+    }, [magic])
 
     const handleOnClickHome = (e: React.MouseEvent<HTMLLIElement>): void => {
         e.preventDefault()
