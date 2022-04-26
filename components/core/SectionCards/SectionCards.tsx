@@ -6,11 +6,13 @@ import {Card} from "@components/core";
 import {cardData} from "@data/index";
 import Link from "next/link";
 
-const SectionCards: FC<SectionCardProps> = ({title, videos, size, shouldScale}) => {
+const SectionCards: FC<SectionCardProps> = (
+    {title, videos, size, shouldScale, shouldWrap }
+) => {
     return (
         <section className={styles.container}>
             <h2 className={styles.title}>{title}</h2>
-            <div className={cn(styles.cardWrapper)}>
+            <div className={cn(styles.cardWrapper, shouldWrap && styles.wrap)}>
                 {videos.map((video, idx) => {
                     return (
                         <Link key={idx} href={`/video/${video.id}`}>

@@ -37,8 +37,8 @@ const MyList = ({
                         title={'My List'}
                         videos={myListVideos}
                         size={'small'}
-                        shouldWrap={sectionCardData.shouldWrap}
-                        shouldScale={sectionCardData.shouldScale}
+                        shouldWrap={true}
+                        shouldScale={false}
                     />
                 </div>
             </main>

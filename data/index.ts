@@ -57,7 +57,7 @@ export const sectionCardData = {
         }
     ],
     size: 'large',
-    shouldWrap: true,
+    shouldWrap: false,
     shouldScale: true
 }
 
