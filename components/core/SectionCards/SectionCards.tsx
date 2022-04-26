@@ -13,7 +13,7 @@ const SectionCards: FC<SectionCardProps> = ({title, videos, size, shouldScale}) 
             <div className={cn(styles.cardWrapper)}>
                 {videos.map((video, idx) => {
                     return (
-                        <Link key={video.id} href={`/video/${video.id}`}>
+                        <Link key={idx} href={`/video/${video.id}`}>
                             <a>
                                 <Card
                                     key={idx}
