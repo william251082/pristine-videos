@@ -93,10 +93,11 @@ interface Video {
 
 export const getWatchItAgainVideos = async (userId: string, token: string) => {
     const videos = await getWatchedVideos(userId, token)
+    console.log(videos)
     return videos?.map(({videoId}: Video) => {
         return {
             id: videoId,
-            imgUrl: `https://i.ytimg.com/vi/${videoId}/maxresdefault.jpg`,
+            imgUrl: `https://i.ytimg.com/vi/${videoId}/maxresdefault.jpg`
         };
     }) || []
 };

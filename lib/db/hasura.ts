@@ -174,7 +174,7 @@ export async function updateStat(
 export async function getWatchedVideos(userId: string, token: string) {
     const operationsDoc = `
         query watchedVideos($userId: String!) {
-            stats(where: {
+            stat(where: {
             watched: {_eq: true}, 
             userId: {_eq: $userId},
         }) {

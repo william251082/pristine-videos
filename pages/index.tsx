@@ -15,12 +15,14 @@ export async function getServerSideProps() {
     const travelVideos = await getVideos('travel');
     const productivityVideos = await getVideos('productivity');
     const popularVideos = await getPopularVideos();
-    return { props: {disneyVideos, travelVideos, productivityVideos, popularVideos, watchItAgainVideos} }
+    return {props: {
+        disneyVideos, travelVideos, productivityVideos, popularVideos, watchItAgainVideos
+    }}
 }
 
-const Home = (
-    {disneyVideos, travelVideos, productivityVideos, popularVideos, watchItAgainVideos}: InferGetServerSidePropsType<typeof getServerSideProps>
-) => {
+const Home = ({
+    disneyVideos, travelVideos, productivityVideos, popularVideos, watchItAgainVideos
+}: InferGetServerSidePropsType<typeof getServerSideProps>) => {
     return (
         <div className={styles.container}>
             <Head>
