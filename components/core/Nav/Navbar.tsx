@@ -13,7 +13,7 @@ const Navbar: FC<NavbarProps> = () => {
     const [didToken, setDidToken] = useState('')
 
     useEffect(() => {
-        handleEmail().then(r => r)
+        handleEmail().catch(console.error)
     }, [])
 
     const handleEmail = async () => {

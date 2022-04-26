@@ -189,7 +189,7 @@ export async function getWatchedVideos(userId: string, token: string) {
         token
     );
 
-    return response?.data?.stat;
+    return response?.data?.stat || [];
 }
 
 export {}
