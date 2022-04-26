@@ -9,7 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@magic-sdk/admin": "^1.4.0",
+    "@magic-sdk/admin": "1.3.4",
     "@magic-sdk/types": "^7.1.0",
     "@types/cookie": "^0.4.1",
     "@types/react-modal": "^3.13.1",

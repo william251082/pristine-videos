@@ -11,45 +11,20 @@ export default async function login(req:NextApiRequest, res: NextApiResponse<Log
         try {
             const auth = req.headers.authorization
             const didToken = auth ? auth.substring(7) : ''
-            // const metaData = await magicAdmin.users.getMetadataByToken(didToken)
+            const metaData = await magicAdmin.users.getMetadataByToken(didToken)
             const payload = {
-                issuer: 'william',
-                publicAddress: 'kugcgckgcvk',
-                email: 'william@hi.com',
-                oauthProvider: null,
-                phoneNumber: null,
-                "iat": Math.floor(Date.now()/1000),
-                "exp": Math.floor(Date.now()/1000 + 7 * 24 * 60 * 60),
+                ...metaData,
+                iat: Math.floor(Date.now()/1000),
+                exp: Math.floor(Date.now()/1000 + 7 * 24 * 60 * 60),
                 "https://hasura.io/jwt/claims": {
                     "x-hasura-allowed-roles": ["admin","user"],
-                    "x-hasura-default-role": "admin",
-                    "x-hasura-user-id": 'wiliam'
+                    "x-hasura-default-role": "user",
+                    "x-hasura-user-id": `${metaData.issuer}`
                 }
             }
-            // const payload = {
-            //     issuer: 'hi',
-            //     publicAddress: 'kugcgckgcvk',
-            //     email: 'hi@hi.com',
-            //     oauthProvider: null,
-            //     phoneNumber: null,
-            //     "iat": Math.floor(Date.now()/1000),
-            //     "exp": Math.floor(Date.now()/1000 + 7 * 24 * 60 * 60),
-            //     "https://hasura.io/jwt/claims": {
-            //         "x-hasura-allowed-roles": ["admin","user"],
-            //         "x-hasura-default-role": "user",
-            //         "x-hasura-user-id": `${metaData.issuer}`
-            //     }
-            // }
             const token = jwt.sign(payload, jwtSecret)
-            const isNewUserQuery = await isNewUser(token, 'william')
-            // isNewUserQuery && (await createNewUser(token, metaData))
-            isNewUserQuery && (await createNewUser(token, {
-                issuer: 'william',
-                publicAddress: 'kugcgckgcvk',
-                email: 'william@hi.com',
-                oauthProvider: null,
-                phoneNumber: null,
-            }))
+            const isNewUserQuery = await isNewUser(token, metaData.issuer)
+            isNewUserQuery && (await createNewUser(token, metaData))
             setTokenCookie(token, res);
             res.send({done: true})
         } catch (err) {
