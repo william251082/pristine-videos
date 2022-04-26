@@ -4,19 +4,10 @@ import styles from "@styles/MyList.module.css"
 import {Navbar} from "@components/core"
 import redirectUser from "@utils/redirectUser"
 import {getMyList} from "@lib/videos"
-import {SectionCards} from "@components/core";
+import {SectionCards} from "@components/core"
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
     const {userId, token} = await redirectUser(context)
-    if (!userId) {
-        return {
-            props: {},
-            redirect: {
-                destination: '/login',
-                permanent: false
-            }
-        }
-    }
     const myListVideos = await getMyList(userId, token);
     return {props: {myListVideos}}
 }

@@ -13,10 +13,9 @@ export default async function logout(req:NextApiRequest, res: NextApiResponse<Lo
         const userId = await verifyToken(token)
         removeTokenCookie(res)
         try {
-            console.log(userId)
             await magicAdmin.users.logoutByIssuer(userId);
         } catch (error) {
-            console.log("User's session with Magic already expired")
+            console.error("User's session with Magic already expired")
             console.error("Error occurred while logging out magic user", error)
         }
         res.writeHead(302, { Location: "/login" })

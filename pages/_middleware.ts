@@ -1,10 +1,15 @@
 import {NextFetchEvent, NextRequest, NextResponse} from "next/server";
+import {verifyToken} from "@utils/verifyToken";
 
-export function middleware(req: NextRequest, ev: NextFetchEvent) {
-    // check the token
-    // if token is valid or page is /login
-    return NextResponse.next()
+export async function middleware(req: NextRequest, ev: NextFetchEvent) {
+    const token = req ? req.cookies?.token : ''
+    const userId = await verifyToken(token)
+    const {pathname, origin} = req.nextUrl.clone()
 
-    // if no token
-    // redirect to login
+    if ((token && userId) || userId || pathname.includes(`/api/login`) || pathname.includes('/static')) {
+        return NextResponse.next()
+    }
+    if (!token && pathname !== `/login`) {
+        return NextResponse.redirect(`${origin}/login`)
+    }
 }
