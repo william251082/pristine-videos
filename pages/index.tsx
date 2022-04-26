@@ -6,10 +6,10 @@ import Navbar from "@components/core/Nav";
 import {Banner} from "@components/core";
 import SectionCards from "@components/core/SectionCard";
 import {getPopularVideos, getVideos, getWatchItAgainVideos} from "@lib/videos";
+import redirectUser from "@utils/redirectUser";
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
-    const {token} = context.req.cookies
-    const userId = 'william'
+    const {userId, token} = await redirectUser(context)
     const watchItAgainVideos = await getWatchItAgainVideos(userId, token)
     const disneyVideos = await getVideos('disney trailer');
     const travelVideos = await getVideos('travel');
