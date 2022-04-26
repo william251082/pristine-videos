@@ -102,7 +102,7 @@ const Navbar: FC<NavbarProps> = () => {
                         {showDropdown && (
                             <div className={styles.navDropdown}>
                                 <div>
-                                    <Link href="/logout">
+                                    <Link href="/login">
                                         <a className={styles.linkName} onClick={handleSignOut}>Sign out</a>
                                     </Link>
                                     <div className={styles.lineWrapper}>
