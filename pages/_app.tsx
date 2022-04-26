@@ -9,19 +9,7 @@ function MyApp({Component, pageProps}: AppProps) {
     const router = useRouter()
     const [isLoading, setIsLoading] = useState(false)
 
-    const handleIsLoggedIn = useCallback(async () => {
-        if (magic) {
-            const isLoggedIn = await magic.user.isLoggedIn()
-            if (isLoggedIn) {
-                router.push('/').catch(console.error)
-            } else {
-                router.push('/login').catch(console.error)
-            }
-        }
-    }, [magic, router])
-
     useEffect(() => {
-        handleIsLoggedIn().catch(console.error)
         const handleComplete = () => setIsLoading(false)
 
         router.events.on("routeChangeComplete", handleComplete)
@@ -31,7 +19,7 @@ function MyApp({Component, pageProps}: AppProps) {
             router.events.off("routeChangeComplete", handleComplete)
             router.events.off("routeChangeError", handleComplete)
         };
-    }, [handleIsLoggedIn, router])
+    }, [magic, router])
 
 
 
