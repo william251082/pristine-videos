@@ -4,7 +4,7 @@ import {useRouter} from "next/router";
 import Link from 'next/link';
 import Image from "next/image";
 import {magic} from "@lib/magic-client";
-import {NavbarProps} from "@components/core/Nav/NavbarTypes";
+import {NavbarProps} from "@components/core/Navbar/NavbarTypes";
 
 const Navbar: FC<NavbarProps> = () => {
     const router = useRouter()
@@ -33,11 +33,11 @@ const Navbar: FC<NavbarProps> = () => {
 
     const handleOnClickHome = (e: React.MouseEvent<HTMLLIElement>): void => {
         e.preventDefault()
-        router.push('/').then(r => r)
+        router.push('/').catch(console.error)
     }
     const handleOnClickMyList = (e: React.MouseEvent<HTMLLIElement>): void => {
         e.preventDefault()
-        router.push('/browse/my-list').then(r => r)
+        router.push('/browse/my-list').catch(console.error)
     }
     const handleShowDropdown = (e: React.MouseEvent<HTMLButtonElement>): void => {
         e.preventDefault()
@@ -46,13 +46,17 @@ const Navbar: FC<NavbarProps> = () => {
     const handleSignOut = async (e: React.MouseEvent<HTMLAnchorElement>) => {
         e.preventDefault()
         try {
-            if (magic) {
-                await magic.user.logout()
-                router.push('/login').then(r => r)
-            }
+            const response = await fetch('/api/logout', {
+                method: 'POST',
+                headers: {
+                    Authorisation: `Bearer ${didToken}`,
+                    "Content-Type": "application/json"
+                }
+            })
+            await response.json()
         } catch(err) {
-            console.error('Error retrieving email.', err)
-            router.push('/login').then(r => r)
+            console.error('Error logging out', err)
+            router.push('/login').catch(console.error)
         }
     }
     return (
@@ -98,7 +102,7 @@ const Navbar: FC<NavbarProps> = () => {
                         {showDropdown && (
                             <div className={styles.navDropdown}>
                                 <div>
-                                    <Link href="/login">
+                                    <Link href="/logout">
                                         <a className={styles.linkName} onClick={handleSignOut}>Sign out</a>
                                     </Link>
                                     <div className={styles.lineWrapper}>

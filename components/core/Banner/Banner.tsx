@@ -7,7 +7,7 @@ import {useRouter} from "next/router";
 const Banner: FC<BannerProps> = ({title, subTitle, imgUrl, videoId}) => {
     const router = useRouter()
     const handleOnPlay = () => {
-        router.push(`video/${videoId}`).then(r => r)
+        router.push(`video/${videoId}`).catch(console.error)
     }
     return (
         <div className={styles.container}>

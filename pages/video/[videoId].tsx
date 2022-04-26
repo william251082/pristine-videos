@@ -4,7 +4,7 @@ import styles from "@styles/Video.module.css"
 import cn from "classnames"
 import {GetStaticPropsContext, InferGetStaticPropsType} from "next";
 import {getYoutubeVideoById} from "@lib/videos";
-import Navbar from "@components/core/Nav";
+import {Navbar} from "@components/core"
 import DisLike from "@components/icons/dislike-icon";
 import Like from "@components/icons/like-icon";
 import React, {useCallback, useEffect, useState} from "react";

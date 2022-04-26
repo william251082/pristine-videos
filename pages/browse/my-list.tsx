@@ -1,9 +1,8 @@
 import {GetServerSidePropsContext, InferGetServerSidePropsType} from "next"
 import Head from "next/head"
 import styles from "@styles/MyList.module.css"
-import Navbar from "@components/core/Nav"
+import {Navbar} from "@components/core"
 import redirectUser from "@utils/redirectUser"
-import {sectionCardData} from "@data/index"
 import {getMyList} from "@lib/videos"
 import {SectionCards} from "@components/core";
 

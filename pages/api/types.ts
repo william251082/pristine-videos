@@ -11,6 +11,11 @@ export interface LoginResponse {
     done: boolean
     error?: ResponseError
 }
+export interface LogoutResponse {
+    [k: string]: any
+    error?: ResponseError
+    message: string
+}
 export interface StatsResponse {
     [k: string]: any
     msg: string

@@ -10,7 +10,7 @@ function MyApp({Component, pageProps}: AppProps) {
     const [isLoading, setIsLoading] = useState(false)
 
     useEffect(() => {
-        handleIsLoggedIn().then(r => r)
+        handleIsLoggedIn().catch(console.error)
         const handleComplete = () => setIsLoading(false)
 
         router.events.on("routeChangeComplete", handleComplete)
@@ -26,9 +26,9 @@ function MyApp({Component, pageProps}: AppProps) {
         if (magic) {
             const isLoggedIn = await magic.user.isLoggedIn()
             if (isLoggedIn) {
-                router.push('/').then(r => r)
+                router.push('/').catch(console.error)
             } else {
-                router.push('/login').then(r => r)
+                router.push('/login').catch(console.error)
             }
         }
     }
