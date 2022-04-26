@@ -2,12 +2,20 @@ import {GetServerSidePropsContext} from "next";
 import Head from "next/head";
 import styles from "@styles/MyList.module.css";
 import Navbar from "@components/core/Nav";
+import redirectUser from "@utils/redirectUser";
 
-export async function getServerSideProps({params}: GetServerSidePropsContext) {
-
-    return {
-        props: {},
-    };
+export async function getServerSideProps(context: GetServerSidePropsContext) {
+    const {userId} = await redirectUser(context)
+    if (!userId) {
+        return {
+            props: {},
+            redirect: {
+                destination: '/login',
+                permanent: false
+            }
+        }
+    }
+    return {props: {}}
 }
 
 const MyList = () => {
