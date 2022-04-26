@@ -11,7 +11,7 @@ class MyDocument extends Document {
                         href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@700&display=swap"
                         rel="stylesheet"
                     />
-                    <title/>
+                    <title>Pristine Videos</title>
                 </Head>
                 <body>
                     <Main/>

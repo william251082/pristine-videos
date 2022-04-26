@@ -1,6 +1,6 @@
 import '@styles/globals.css'
 import type {AppProps} from 'next/app'
-import {useEffect, useState} from "react";
+import {useCallback, useEffect, useState} from "react";
 import {magic} from "@lib/magic-client";
 import {useRouter} from "next/router";
 import Loading from "@components/ui/Loading";
@@ -9,7 +9,7 @@ function MyApp({Component, pageProps}: AppProps) {
     const router = useRouter()
     const [isLoading, setIsLoading] = useState(false)
 
-    const handleIsLoggedIn = async () => {
+    const handleIsLoggedIn = useCallback(async () => {
         if (magic) {
             const isLoggedIn = await magic.user.isLoggedIn()
             if (isLoggedIn) {
@@ -18,7 +18,7 @@ function MyApp({Component, pageProps}: AppProps) {
                 router.push('/login').catch(console.error)
             }
         }
-    }
+    }, [magic, router])
 
     useEffect(() => {
         handleIsLoggedIn().catch(console.error)
