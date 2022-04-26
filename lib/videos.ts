@@ -64,7 +64,7 @@ const getCommonVideos = async (url: string) => {
                 publishTime: snippet.publishedAt,
                 channelTitle: snippet.channelTitle,
                 statistics: item.statistics ? item.statistics : { viewCount: 0 },
-                imgUrl: snippet.thumbnails.high.url
+                imgUrl: `https://i.ytimg.com/vi/${id}/maxresdefault.jpg`
             }
         })
     } catch (error) {

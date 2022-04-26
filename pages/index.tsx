@@ -41,7 +41,7 @@ const Home = ({
                     <SectionCards
                         title={'Watch It Again'}
                         videos={watchItAgainVideos}
-                        size={sectionCardData.size}
+                        size={'small'}
                         shouldWrap={sectionCardData.shouldWrap}
                         shouldScale={sectionCardData.shouldScale}
                     />
