@@ -132,14 +132,14 @@ export async function insertStat(
                 userId
             }
         }
-    `;
+    `
 
     return await queryHasuraGql(
         operationsDoc,
         "insertStat",
         { favourited, userId, watched, videoId },
         token
-    );
+    )
 }
 
 export async function updateStat(
@@ -162,13 +162,13 @@ export async function updateStat(
             }
         }
     }
-`;
+`
     return await queryHasuraGql(
         operationsDoc,
         "updateStat",
         { favourited, userId, watched, videoId },
         token
-    );
+    )
 }
 
 export async function getWatchedVideos(userId: string, token: string) {
@@ -181,15 +181,38 @@ export async function getWatchedVideos(userId: string, token: string) {
             videoId
         }
     }
-`;
+`
     const response = await queryHasuraGql(
         operationsDoc,
         "watchedVideos",
         {userId},
         token
-    );
+    )
 
     return response?.data?.stat || [];
+}
+
+export async function getMyListVideos(userId: string, token: string) {
+    const operationsDoc = `
+        query favouritedVideos($userId: String!) {
+            stat(where: {
+                userId: {_eq: $userId}, 
+                favourited: {_eq: 1}
+            }) {
+                videoId
+            }
+        }
+    `
+    const response = await queryHasuraGql(
+        operationsDoc,
+        "favouritedVideos",
+        {
+            userId,
+        },
+        token
+    )
+
+    return response?.data?.stat || []
 }
 
 export {}

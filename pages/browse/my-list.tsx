@@ -1,11 +1,11 @@
-import {GetServerSidePropsContext, InferGetServerSidePropsType} from "next";
-import Head from "next/head";
-import styles from "@styles/MyList.module.css";
-import Navbar from "@components/core/Nav";
-import redirectUser from "@utils/redirectUser";
-import SectionCards from "@components/core/SectionCard";
-import {sectionCardData} from "@data/index";
-import {getWatchItAgainVideos} from "@lib/videos";
+import {GetServerSidePropsContext, InferGetServerSidePropsType} from "next"
+import Head from "next/head"
+import styles from "@styles/MyList.module.css"
+import Navbar from "@components/core/Nav"
+import redirectUser from "@utils/redirectUser"
+import {sectionCardData} from "@data/index"
+import {getMyList} from "@lib/videos"
+import {SectionCards} from "@components/core";
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
     const {userId, token} = await redirectUser(context)
@@ -18,12 +18,12 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
             }
         }
     }
-    const watchItAgainVideos = await getWatchItAgainVideos(userId, token)
-    return {props: {watchItAgainVideos}}
+    const myListVideos = await getMyList(userId, token);
+    return {props: {myListVideos}}
 }
 
 const MyList = ({
-    watchItAgainVideos
+    myListVideos
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
     return (
         <div>
@@ -35,7 +35,7 @@ const MyList = ({
                 <div className={styles.sectionWrapper}>
                     <SectionCards
                         title={'My List'}
-                        videos={[]}
+                        videos={myListVideos}
                         size={'small'}
                         shouldWrap={sectionCardData.shouldWrap}
                         shouldScale={sectionCardData.shouldScale}
@@ -46,4 +46,4 @@ const MyList = ({
     );
 };
 
-export default MyList;
+export default MyList
