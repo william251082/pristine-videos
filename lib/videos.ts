@@ -93,7 +93,6 @@ interface Video {
 
 export const getWatchItAgainVideos = async (userId: string, token: string) => {
     const videos = await getWatchedVideos(userId, token)
-    console.log(videos)
     return videos?.map(({videoId}: Video) => {
         return {
             id: videoId,
