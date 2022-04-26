@@ -4,7 +4,7 @@ import styles from '@styles/Home.module.css'
 import {bannerData, headData, sectionCardData} from "@data/index";
 import {Navbar} from "@components/core"
 import {Banner} from "@components/core";
-import SectionCards from "@components/core/SectionCards";
+import {SectionCards} from "@components/core";
 import {getPopularVideos, getVideos, getWatchItAgainVideos} from "@lib/videos";
 import redirectUser from "@utils/redirectUser";
 
