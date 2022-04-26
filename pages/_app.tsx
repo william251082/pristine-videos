@@ -1,9 +1,9 @@
 import '@styles/globals.css'
 import type {AppProps} from 'next/app'
-import {useCallback, useEffect, useState} from "react";
-import {magic} from "@lib/magic-client";
+import {useEffect, useState} from "react";
 import {useRouter} from "next/router";
 import Loading from "@components/ui/Loading";
+import Head from 'next/head'
 
 function MyApp({Component, pageProps}: AppProps) {
     const router = useRouter()
@@ -19,11 +19,24 @@ function MyApp({Component, pageProps}: AppProps) {
             router.events.off("routeChangeComplete", handleComplete)
             router.events.off("routeChangeError", handleComplete)
         };
-    }, [magic, router])
+    }, [router])
 
 
 
-    return isLoading ? <Loading /> : <Component {...pageProps} />
+    return (
+        <>
+            <Head>
+                <link rel="preconnect" href="https://fonts.googleapis.com"/>
+                <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin={''}/>
+                <link
+                    href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@700&display=swap"
+                    rel="stylesheet"
+                />
+                <title>Pristine Videos</title>
+            </Head>
+            {isLoading ? <Loading /> : <Component {...pageProps} />}
+        </>
+    )
 }
 
 export default MyApp
