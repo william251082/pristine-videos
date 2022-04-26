@@ -31,7 +31,7 @@ function MyApp({Component, pageProps}: AppProps) {
             router.events.off("routeChangeComplete", handleComplete)
             router.events.off("routeChangeError", handleComplete)
         };
-    }, [handleIsLoggedIn])
+    }, [handleIsLoggedIn, router])
 
 
 
