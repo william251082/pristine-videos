@@ -5,6 +5,7 @@ import Link from 'next/link';
 import styles from "./Login.module.css";
 import {useRouter} from "next/router";
 import {magic} from "@lib/magic-client";
+import {validate} from 'email-validator'
 
 const Login: FC = () => {
     const router = useRouter()
@@ -31,7 +32,7 @@ const Login: FC = () => {
     }
     const handleLoginWithEmail = async (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault()
-        if (email) {
+        if (validate(email)) {
             try {
                 setIsLoading(true)
                 if (magic) {
