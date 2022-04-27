@@ -14,7 +14,7 @@ const Banner: FC<BannerProps> = ({title, subTitle, imgUrl, videoId}) => {
             <div className={styles.leftWrapper}>
                 <div className={styles.left}>
                     <div className={styles.seriesWrapper}>
-                        <p className={styles.firstLetter}>N</p>
+                        <p className={styles.firstLetter}>P</p>
                         <p className={styles.series}>S E R I E S</p>
                     </div>
                     <h3 className={styles.title}>{title}</h3>
