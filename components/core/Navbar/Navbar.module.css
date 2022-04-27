@@ -27,6 +27,7 @@
 }
 
 .logoWrapper {
+    padding-top: 10px;
     color: var(--red);
     width: 8rem /* 128px */;
 }

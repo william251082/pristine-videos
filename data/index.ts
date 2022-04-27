@@ -8,8 +8,8 @@ export const navData = {
 }
 export const bannerData = {
     videoId: 'vXk2Z1dy_gA',
-    title: "Clifford",
-    subTitle: "Cute dog",
+    title: "Featured Video",
+    subTitle: " Great Film!",
     imgUrl: "/static/clifford.webp"
 }
 export const cardData = {

@@ -66,7 +66,7 @@ const Navbar: FC<NavbarProps> = () => {
                         <div className={styles.logoWrapper}>
                             <Image
                                 src="/static/netflix.svg"
-                                alt="Netflix logo"
+                                alt="Pristine logo"
                                 width="128px"
                                 height="34px"
                             />
