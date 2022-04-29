@@ -23,7 +23,6 @@ export interface StatsResponse {
 export interface ResponseError {
     message: string
 }
-
 export interface HasuraPayloadToken extends JwtPayload {
     [k: string]: any
     issuer?: string
@@ -39,5 +38,4 @@ export interface HasuraPayloadToken extends JwtPayload {
         'x-hasura-user-id': string
     }
 }
-
 export type DecodedToken = HasuraPayloadToken | JwtPayload | string | undefined

@@ -11,10 +11,10 @@ import redirectUser from "@utils/redirectUser";
 export async function getServerSideProps(context: GetServerSidePropsContext) {
     const {userId, token} = await redirectUser(context)
     const watchItAgainVideos = await getWatchItAgainVideos(userId, token)
-    const disneyVideos = await getVideos('disney trailer');
-    const travelVideos = await getVideos('travel');
-    const productivityVideos = await getVideos('productivity');
-    const popularVideos = await getPopularVideos();
+    const disneyVideos = await getVideos('disney trailer')
+    const travelVideos = await getVideos('travel')
+    const productivityVideos = await getVideos('productivity')
+    const popularVideos = await getPopularVideos()
     return {props: {
         disneyVideos, travelVideos, productivityVideos, popularVideos, watchItAgainVideos
     }}
