@@ -1,13 +1,18 @@
-import jwt from "jsonwebtoken";
-import {jwtSecret} from "@lib/jwt";
-import {DecodedToken} from "@pages/api/types";
+import { jwtVerify } from "jose";
 
 export async function verifyToken(token: string): Promise<string> {
-    let userId: string = ''
-    if (token) {
-        const decoded = jwt.verify(token, jwtSecret)
-        const decodedToken: DecodedToken = typeof decoded !== 'string' ? decoded : undefined
-        userId = typeof decodedToken?.issuer === 'string' ? decodedToken?.issuer : ''
+
+    try {
+        if (token) {
+            const verified = await jwtVerify(
+                token,
+                new TextEncoder().encode(process.env.NEXT_PUBLIC_JWT_SECRET)
+            );
+            return typeof verified.payload?.issuer === 'string' ? verified.payload?.issuer : '';
+        }
+        return '';
+    } catch (err) {
+        console.error({ err });
+        return '';
     }
-    return userId;
 }
