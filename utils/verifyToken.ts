@@ -8,7 +8,7 @@ export async function verifyToken(token: string): Promise<string> {
                 token,
                 new TextEncoder().encode(process.env.NEXT_PUBLIC_JWT_SECRET)
             );
-            return typeof verified.payload?.issuer === 'string' ? verified.payload?.issuer : '';
+            return typeof verified.payload.issuer === 'string' ? verified.payload.issuer : '';
         }
         return '';
     } catch (err) {
